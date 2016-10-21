@@ -1,0 +1,26 @@
+create table person
+(id               NUMBER NOT NULL,
+ full_name        varchar2(60) NOT NULL,
+ last_name        varchar2(30),
+ first_name       varchar2(30),
+ constraint person_pk primary key(id)
+);
+
+
+-- Load person data from the name_data table
+-- Note: We want the id to be sequential so
+-- we don't have a sequence for this one
+-- instead we'll use rownum
+
+INSERT /*+ APPEND */ INTO person(id, full_name, last_name, first_name)
+SELECT rownum
+       ,first.name || ' ' || last.name
+       ,last.name
+       ,first.name 
+FROM   name_data first, name_data last
+WHERE  first.name_type != 'LAST'
+AND    last.name_type  = 'LAST';
+
+commit;
+
+

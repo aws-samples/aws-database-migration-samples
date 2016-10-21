@@ -1,0 +1,54 @@
+--------------------------------------------------------
+-- 
+-- !!! log in as a user with DBA privilege (master user in RDS)
+--
+-- the following script creates the user dms_sample/dms_sample
+-- it is recommended that you change the password
+-- after creating the account.
+--
+-- turn on supplemental logging and increase archive retention (RDS)
+---------------------------------------------------------
+-- run the following script:
+
+create_dms_sample.sql
+
+-- IF your source is on RDS:
+exec rdsadmin.rdsadmin_util.alter_supplemental_logging('ADD');
+exec rdsadmin.rdsadmin_util.alter_supplemental_logging('ADD','PRIMARY KEY');
+exec rdsadmin.rdsadmin_util.set_configuration('archivelog retention hours',8);
+
+-- If your source is NOT on RDS:
+ALTER DATABASE ADD SUPPLEMENTAL LOG DATA;
+ALTER DATABASE ADD SUPPLEMENTAL LOG DATA (PRIMARY KEY) COLUMNS;
+
+--------------------------------------------------------
+--
+-- !!! log in as the user DMS_SAMPLE
+--
+---------------------------------------------------------
+-- run the following scripts:
+load_base_data.sql
+install_dms_sample_data.sql
+
+
+
+--------------------------------------------------------
+--
+-- !!! log in as a user with DBA privilege (master user in RDS)
+--
+-- the following creates the user dms_user/dms_user
+-- it is recommended that you change the password
+-- after creating the account.
+---------------------------------------------------------
+create_dms_user.sql
+dms_user_privileges.sql
+add_supplemental_logging.sql
+
+--------------------------------------------------------
+--
+-- If you want the dms_user to use the Schema Conversion 
+-- Tool (SCT) you will need to give them the following privileges
+--
+--------------------------------------------------------
+dms_user_sct_privileges.sql
+

@@ -1,0 +1,12 @@
+create or replace public synonym PERSON for DMS_SAMPLE.PERSON;
+create or replace public synonym PLAYER for DMS_SAMPLE.PLAYER;
+create or replace public synonym SEAT for DMS_SAMPLE.SEAT;
+create or replace public synonym SEAT_TYPE for DMS_SAMPLE.SEAT_TYPE;
+create or replace public synonym SPORTING_EVENT for DMS_SAMPLE.SPORTING_EVENT;
+create or replace public synonym SPORTING_EVENT_TICKET for DMS_SAMPLE.SPORTING_EVENT_TICKET;
+create or replace public synonym SPORT_DIVISION for DMS_SAMPLE.SPORT_DIVISION;
+create or replace public synonym SPORT_LEAGUE for DMS_SAMPLE.SPORT_LEAGUE;
+create or replace public synonym SPORT_LOCATION for DMS_SAMPLE.SPORT_LOCATION;
+create or replace public synonym SPORT_TEAM for DMS_SAMPLE.SPORT_TEAM;
+create or replace public synonym SPORT_TYPE for DMS_SAMPLE.SPORT_TYPE;
+create or replace public synonym TICKET_PURCHASE_HIST for DMS_SAMPLE.TICKET_PURCHASE_HIST;

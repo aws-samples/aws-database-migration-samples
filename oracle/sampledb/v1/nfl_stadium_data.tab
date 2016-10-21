@@ -1,0 +1,10 @@
+create table nfl_stadium_data(
+stadium varchar2(60),
+seating_capacity NUMBER,
+location varchar2(40),
+surface varchar2(80),
+roof varchar2(30),
+team varchar2(40),
+opened varchar2(10),
+sport_location_id NUMBER
+);

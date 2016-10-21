@@ -1,0 +1,15 @@
+create table nfl_data(
+Position varchar2(5),
+player_number NUMBER(3),
+Name varchar2(40),
+status varchar2(10),
+stat1 varchar2(10),
+stat1_val varchar2(10),
+stat2 varchar2(10),
+stat2_val varchar2(10),
+stat3 varchar2(10),
+stat3_val varchar2(10),
+stat4 varchar2(10),
+stat4_val varchar2(10),
+team varchar2(10)
+);

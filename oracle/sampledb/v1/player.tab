@@ -1,0 +1,74 @@
+create sequence player_seq
+  start with 1 increment by 10 cache 20;
+
+create table player
+(id               number NOT NULL,
+ sport_team_id NUMBER NOT NULL
+   constraint sport_team_fk references sport_team(id),
+ last_name        VARCHAR2(30),
+ first_name       varchar2(30),
+ full_name        varchar2(30),
+ constraint player_pk primary key(id)
+);
+
+CREATE or replace TRIGGER player_id_trg
+  BEFORE INSERT ON player
+  FOR EACH ROW
+DECLARE
+BEGIN
+  IF( :new.id IS NULL )
+  THEN
+    :new.id := player_seq.nextval;
+  END IF;
+END;
+/
+
+
+
+-- Load MLB Data
+CREATE or replace PROCEDURE loadMLBPlayers AS
+  t_id NUMBER;
+
+  CURSOR mlb_players IS
+  select distinct 
+    decode(TRIM(mlb_team_long),'Anaheim Angels', 'Los Angeles Angels',mlb_team_long) t_name
+    ,TRIM(mlb_name) name
+    ,substr(TRIM(mlb_name),1,instr(mlb_name,' ')) l_name
+    ,substr(TRIM(mlb_name),instr(mlb_name,' ')) f_name
+  from mlb_data;
+
+BEGIN
+  FOR trec IN mlb_players LOOP
+    SELECT id INTO t_id FROM sport_team
+    WHERE sport_type_name = 'baseball' 
+    AND   sport_league_short_name = 'MLB'
+    AND   name = trec.t_name;
+
+    insert into player(sport_team_id, last_name, first_name, full_name)
+    values(t_id, trec.l_name, trec.f_name, trec.name);
+  END LOOP;
+END;
+/
+
+CREATE or replace PROCEDURE loadNFLPlayers AS
+  t_id NUMBER;
+
+  CURSOR nfl_players IS
+  SELECT team
+        ,name
+        ,RTRIM(TRIM(SUBSTR(TRIM(name),1,instr(name,','))),',') l_name
+        ,TRIM(LTRIM(TRIM(SUBSTR(TRIM(name),instr(name,','))),',')) f_name
+  FROM nfl_data;
+BEGIN
+  FOR prec IN nfl_players LOOP
+    SELECT id INTO t_id FROM sport_team
+    WHERE sport_type_name = 'football' 
+    AND   sport_league_short_name = 'NFL'
+    AND   abbreviated_name = prec.team;
+
+    insert into player(sport_team_id, last_name, first_name, full_name)
+    values(t_id, prec.l_name, prec.f_name, prec.name);
+
+  END LOOP;
+END;
+/

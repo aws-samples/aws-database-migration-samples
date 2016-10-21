@@ -1,0 +1,37 @@
+create sequence sporting_event_seq
+  start with 1 increment by 10 cache 20;
+
+create table sporting_event
+(id               NUMBER NOT NULL,
+ sport_type_name  VARCHAR2(15) NOT NULL
+  constraint se_sport_type_fk references sport_type(name),
+ home_team_id     NUMBER NOT NULL
+  constraint se_home_team_id_fk references sport_team(id),
+ away_team_id     NUMBER NOT NULL
+  constraint se_away_team_id_fk references sport_team(id),
+ location_id      NUMBER NOT NULL
+  constraint se_location_id_fk references sport_location(id),
+ start_date_time  DATE NOT NULL,
+ sold_out         NUMBER(1) DEFAULT 0 NOT NULL,
+ constraint chk_sold_out CHECK (sold_out IN (0,1)),
+ constraint sporting_event_pk primary key(id)
+);
+
+CREATE TRIGGER sporting_event_id_trg
+  BEFORE INSERT ON sporting_event
+  FOR EACH ROW
+DECLARE
+BEGIN
+  IF( :new.id IS NULL )
+  THEN
+    :new.id := sporting_event_seq.nextval;
+  END IF;
+END;
+/
+
+
+create index se_start_date_fcn on sporting_event(TRUNC(start_date_time));
+
+
+
+

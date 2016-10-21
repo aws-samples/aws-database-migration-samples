@@ -1,0 +1,89 @@
+create table seat
+( sport_location_id NUMBER
+    constraint s_sport_location_fk references sport_location(id),
+  seat_level  NUMBER(1),
+  seat_section  VARCHAR2(15),
+  seat_row      VARCHAR2(10),
+  seat     VARCHAR2(10),
+  seat_type VARCHAR2(15)
+   constraint seat_type_fk references seat_type(name),
+  constraint seat_pk primary key (sport_location_id, seat_level, seat_section, seat_row, seat)
+);
+
+create index seat_sport_location_idx on seat(sport_location_id);
+
+create or replace procedure generateSeats as
+  CURSOR loc_cur IS
+  SELECT id, seating_capacity, levels, sections
+  FROM sport_location;
+
+  TYPE seatTab IS TABLE OF seat%ROWTYPE INDEX BY BINARY_INTEGER;
+  seat_tab seatTab;
+
+  TYPE seatTypeTab IS TABLE OF seat_type.name%TYPE INDEX BY BINARY_INTEGER;
+  seat_type_tab seatTypeTab;
+
+  s_ct BINARY_INTEGER := 1;
+
+  max_rows_per_section INTEGER := 25;
+  min_rows_per_section INTEGER := 15;
+
+  rows     INTEGER;
+  seats    INTEGER;
+
+  s_ref VARCHAR2(26) := 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  tot_seats NUMBER(10); 
+BEGIN
+  -- load seat type percentage table
+  FOR i IN 1..100 LOOP
+    CASE 
+      WHEN  i <= 5             THEN seat_type_tab(i) := 'luxury';       -- 5% luxury seats
+      WHEN  5 < i AND i <= 35  THEN seat_type_tab(i) := 'premium';      -- 30% premium seats
+      WHEN 35 < i AND i <= 89  THEN seat_type_tab(i) := 'standard';     -- 54% standard seats 
+      WHEN 89 < i AND i <= 99  THEN seat_type_tab(i) := 'sub-standard'; -- 10% sub-standard seats
+      WHEN  i = 100            THEN seat_type_tab(i) := 'obstructed';   -- 1% obstructed seats
+    END CASE;
+  END LOOP;
+
+  FOR lrec in loc_cur  LOOP
+    tot_seats := 0;
+    rows     := ROUND(dbms_random.value(min_rows_per_section, max_rows_per_section));
+    seats := TRUNC(lrec.seating_capacity/(lrec.levels*lrec.sections*rows)+1);
+
+    FOR i IN 1..lrec.levels LOOP
+      FOR j IN 1..lrec.sections LOOP
+        FOR k IN 1..rows LOOP
+          FOR l in 1..seats LOOP
+
+            tot_seats := tot_seats +1;
+            IF tot_seats <= lrec.seating_capacity THEN
+              seat_tab(s_ct).seat_level := i;
+              seat_tab(s_ct).seat_section := j;
+              seat_tab(s_ct).seat_row := SUBSTR(s_ref,k,1);
+              seat_tab(s_ct).seat := l;
+              seat_tab(s_ct).sport_location_id := lrec.id;
+              seat_tab(s_ct).seat_type := seat_type_tab(ROUND(dbms_random.value(1,100)));
+
+              s_ct := s_ct +1;
+              IF s_ct >= 1000 THEN
+                FORALL m IN INDICES OF seat_tab SAVE EXCEPTIONS
+                 INSERT /*+ APPEND */ INTO seat VALUES seat_tab(m);
+                s_ct := 1;
+                seat_tab.DELETE;
+              END IF;
+            END IF;
+
+          END LOOP;
+        END LOOP;
+      END LOOP;
+    END LOOP;
+
+    FORALL m IN INDICES OF seat_tab SAVE EXCEPTIONS
+    INSERT INTO seat VALUES seat_tab(m);
+
+    seat_tab.DELETE;
+    s_ct := 1;
+
+  END LOOP;
+END;
+/
