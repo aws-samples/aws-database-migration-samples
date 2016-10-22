@@ -40,21 +40,3 @@ exec rdsadmin.rdsadmin_util.grant_sys_object('V_$LOGMNR_CONTENTS','DMS_USER');
 grant logmining to dms_user;
 
 
-DECLARE
-  CURSOR tabcur IS
-  SELECT owner, table_name
-  FROM   dba_tables
-  WHERE owner = 'DMS_SAMPLE';
-BEGIN
-  FOR trec IN tabcur LOOP
-   EXECUTE IMMEDIATE 'grant select on ' || trec.owner || '.' || trec.table_name || ' to DMS_USER';
-   EXECUTE IMMEDIATE 'grant alter on ' || trec.owner || '.' || trec.table_name || ' to DMS_USER';
-   
-  END LOOP;
-END;
-/
-
-
-
-grant execute on dms_sample.ticketManagement to dms_user;
-create or replace public synonym ticketmanagement for dms_sample.ticketmanagement;

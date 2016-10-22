@@ -5,15 +5,15 @@
 --
 --------------------------------------------------------------
 
-@mlb_data.tab
-@mlb_data.sql
+@schema/mlb_data.tab
+@schema/mlb_data.sql
 commit;
-@name_data.tab
-@name_data.sql
+@schema/name_data.tab
+@schema/name_data.sql
 commit;
-@nfl_data.tab
-@nfl_data.sql
+@schema/nfl_data.tab
+@schema/nfl_data.sql
 commit;
-@nfl_stadium_data.tab
-@nfl_stadium_data.sql
+@schema/nfl_stadium_data.tab
+@schema/nfl_stadium_data.sql
 commit;

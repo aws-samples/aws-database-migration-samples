@@ -42,36 +42,36 @@ drop table sport_type;
 prompt 'Creating objects and base data...'
 
 prompt 'Creating seat_type table...'
-@seat_type.tab;
+@schema/seat_type.tab;
 prompt 'Creating sport_type table...'
-@sport_type.tab;
+@schema/sport_type.tab;
 prompt 'Creating sporting_league table...'
-@sport_league.tab;
+@schema/sport_league.tab;
 prompt 'Creating sporting location table...'
-@sport_location.tab;
+@schema/sport_location.tab;
 prompt 'Creating sporting_division table...'
-@sport_division.tab;
+@schema/sport_division.tab;
 prompt 'Creating sporting_team table...'
-@sport_team.tab;
+@schema/sport_team.tab;
 prompt 'Creating seat table...'
-@seat.tab;
+@schema/seat.tab;
 prompt 'Creating player table...'
-@player.tab
+@schema/player.tab
 prompt 'Creating person table...'
-@person.tab
+@schema/person.tab
 
 
 prompt 'Creating sporting_event table...'
-@sporting_event.tab;
+@schema/sporting_event.tab;
 
 
 prompt 'Loading baseball teams...'
 exec loadMLBTeams;
-@set_mlb_team_home_field;
+@schema/set_mlb_team_home_field;
 
 prompt 'Loading NFL teams...'
 exec loadNFLTeams;
-@set_nfl_team_home_field;
+@schema/set_nfl_team_home_field;
 
 prompt 'Creating location seats...'
 exec generateSeats;
@@ -86,20 +86,20 @@ commit;
 
 prompt 'Loading sporting events...'
 prompt 'Generating baseball season...'
-@generate_mlb_season;
+@schema/generate_mlb_season;
 
 prompt 'Generating NFL season...'
-@generate_nfl_season;
+@schema/generate_nfl_season;
 
 prompt 'Creating ticket table...'
-@sporting_event_ticket.tab
+@schema/sporting_event_ticket.tab
 
 prompt 'Creating table ticket_purchase_hist...'
-@ticket_purchase_hist.tab
+@schema/ticket_purchase_hist.tab
 
 prompt 'installing procedure generate_tickets...'
 
-@generate_tickets.pls
+@schema/generate_tickets.pls
 
 -- generate mlb tickets
 prompt 'Generating baseball tickets...'
@@ -123,12 +123,30 @@ END;
 
 
 Prompt 'installing the ticket management package...'
-@ticket_management.pkg
+@schema/ticket_management.pkg
 
 Prompt 'gathering statistics...'
 exec dbms_stats.gather_schema_stats('DMS_SAMPLE');
 
-@public_synonyms.sql
+@schema/public_synonyms.sql
 
-@sporting_event_info.vw
-@ticket_info.vw
+@schema/sporting_event_info.vw
+@schema/ticket_info.vw
+
+---------------------------------------------------
+-- add table level supplemental logging
+--------------------------------------------------
+
+DECLARE
+  CURSOR tabcur IS
+  SELECT table_name
+  FROM   user_tables;
+
+  stmt VARCHAR2(200);
+BEGIN
+  FOR trec IN tabcur LOOP
+    stmt :=  'alter table ' || trec.table_name || ' add supplemental log data (primary key) columns';
+    EXECUTE IMMEDIATE stmt;
+  END LOOP;
+END;
+/
