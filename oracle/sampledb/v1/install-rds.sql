@@ -66,12 +66,10 @@ exec rdsadmin.rdsadmin_util.set_configuration('archivelog retention hours',8);
 
 --------------------------------------------------------
 --
--- !!! log in as the user DMS_SAMPLE
+-- install the objects in the dms_sample schema
 --
 ---------------------------------------------------------
--- run the following scripts:
-alter session set current_schema = dms_sample
-connect dms_sample/dms_sample
+alter session set current_schema = dms_sample;
 @schema/load_base_data.sql
 @schema/install_dms_sample_data.sql
 
