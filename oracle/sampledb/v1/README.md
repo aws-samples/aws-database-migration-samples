@@ -1,9 +1,9 @@
---------------------------------------------------------
-Amazon DMS Sample Database for Oracle: version 1.0
+#Amazon DMS Sample Database for Oracle: version 1.0
 
-Requirements: Any version of Oracle compatible with DMS
-              Approximately 10GB of disk space
-              You will need a privileged (DBA) account to execute the scripts
+**Requirements:**
+* Any version of Oracle compatible with DMS
+* Approximately 10GB of disk space
+* You will need a privileged (DBA) account to execute the scripts
 --------------------------------------------------------
 
 Scripts in this repository can be used to generate an Oracle database suitable for testing and exercising
