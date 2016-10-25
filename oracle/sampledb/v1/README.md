@@ -37,7 +37,7 @@ IF you are installing the sampledb into a NON RDS database run the following scr
  * instructions on how to generate transactions for the sampledb
  * description of most of the objects included in the sampledb
 
-## git structure
+## repo structure
 There are three directories below this main directory. they are:
 * data: files containing base data used by the system. These are here for reference only.
 * user: files for creating and adding privileges to the dms_sample and dms_user user accounts
@@ -105,7 +105,7 @@ This will generate 1000 "transfer" transactions each delayed by 0.1 seconds. Tic
 * **SPORTING_EVENT:** A specific meeting between two teams at a specific time and place where they will do battle.
 * **SPORTING_EVENT_TICKET:** A ticket which, for a price, allows a person to sit their butt in a seat and watch a sporting event.
 * **SPORT_DIVISION:** Football has divisions like: AFC WEST, NFC EAST. It allows them to organize their battles and create rivalries.
-* **SPORT_LEAGUE On organized group of teams of the same sport: NFL - National Football League; MLB - Major League Baseball
+* **SPORT_LEAGUE** On organized group of teams of the same sport: NFL - National Football League; MLB - Major League Baseball
 * **SPORT_LOCATION:** A battlefield where teams meet and attempt to destroy each other. Century Link Field (home of the Hawks) is particularly intimidating.
 * **SPORT_TEAM:** An organized group of people who play the same sport. The Seattle Seahawks, (an NFL team), are particularly menacing.
 * **SPORT_TYPE:** Baseball or Football - what's your pleasure?
