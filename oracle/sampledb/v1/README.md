@@ -1,11 +1,5 @@
 #Amazon DMS Sample Database for Oracle: version 1.0
 
-**Requirements:**
-* Any version of Oracle compatible with DMS
-* Approximately 10GB of disk space
-* You will need a privileged (DBA) account to execute the scripts
-
-
 Scripts in this repository can be used to generate an Oracle database suitable for testing and exercising
 the AWS Database Migration Service (DMS) and the AWS Schema Conversion Tool (SCT)
 
@@ -15,6 +9,10 @@ ticketing application. The scripts will also load approximately 8.5 GB of data i
 The sampledb is not meant as an example of how one might ideally build a sports ticketing system rather,
 it's designed to allow the user to get a feel for how to use the AWS Database Migration Service and Schema Converstion Tool.
 
+**Requirements:**
+* Any version of Oracle compatible with DMS
+* Approximately 10GB of disk space
+* You will need a privileged (DBA) account to execute the scripts
 
 **Note:**
 * Allow 45 minutes for installation (depending on the size of the host) 
