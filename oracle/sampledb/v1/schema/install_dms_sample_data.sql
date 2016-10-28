@@ -140,12 +140,14 @@ exec dbms_stats.gather_schema_stats('DMS_SAMPLE');
 DECLARE
   CURSOR tabcur IS
   SELECT table_name
-  FROM   user_tables;
+  FROM   dba_tables
+  WHERE  owner = 'DMS_SAMPLE';
 
   stmt VARCHAR2(200);
 BEGIN
   FOR trec IN tabcur LOOP
-    stmt :=  'alter table ' || trec.table_name || ' add supplemental log data (primary key) columns';
+    stmt :=  'alter table dms_sample.' || trec.table_name || ' add supplemental log data (primary key) columns';
+    dbms_output.put_line('Adding supplemental logging for: ' || trec.table_name );
     EXECUTE IMMEDIATE stmt;
   END LOOP;
 END;
