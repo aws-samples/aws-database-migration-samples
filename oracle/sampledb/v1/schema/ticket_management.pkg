@@ -172,7 +172,7 @@ BEGIN
       INTO   min_tik_id, max_tik_id
       FROM  ticket_purchase_hist;
 
-      SELECT MIN(sporting_event_ticket_id)
+      SELECT MAX(sporting_event_ticket_id)
       INTO   tik_id
       FROM   ticket_purchase_hist
       WHERE  sporting_event_ticket_id <= dbms_random.value(min_tik_id,max_tik_id);
