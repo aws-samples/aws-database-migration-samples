@@ -8,5 +8,11 @@ create table person
 );
 
 
-
+INSERT INTO person(full_name, last_name, first_name)
+SELECT CONCAT(first.name,' ',last.name)
+       ,last.name
+       ,first.name
+FROM   name_data first, name_data last
+WHERE  first.name_type != 'LAST'
+AND    last.name_type  = 'LAST';
 

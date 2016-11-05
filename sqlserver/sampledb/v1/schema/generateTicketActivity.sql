@@ -1,3 +1,6 @@
+drop procedure generateTicketActivity;
+go
+
 create procedure generateTicketActivity(@max_transactions INT = 1000) as
 BEGIN TRY
   DECLARE @min_person_id INT;
@@ -47,6 +50,7 @@ BEGIN TRY
 	END;
 END TRY
 BEGIN CATCH
+  PRINT('Error: Uable to generate tickets...');
 END CATCH;
 
 go
