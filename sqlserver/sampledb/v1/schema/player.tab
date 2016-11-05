@@ -1,0 +1,99 @@
+
+
+create table player
+(id    INT IDENTITY(1,1) NOT NULL,
+ sport_team_id INT NOT NULL
+   constraint sport_team_fk references sport_team(id),
+ last_name        VARCHAR(30),
+ first_name       varchar(30),
+ full_name        varchar(30),
+ constraint player_pk primary key(id)
+);
+
+go
+
+
+-- Load MLB Data
+CREATE PROCEDURE loadMLBPlayers AS
+  DECLARE @mlb_players CURSOR;
+  DECLARE @sport_team_id INT;
+  DECLARE @last_name VARCHAR(30);
+  DECLARE @first_name VARCHAR(30);
+  DECLARE @full_name VARCHAR(30);
+  DECLARE @team_name VARCHAR(60);
+
+  SET @mlb_players = CURSOR FOR
+  select distinct
+    CASE LTRIM(RTRIM(mlb_team_long))
+	  WHEN 'Anaheim Angels' THEN 'Los Angeles Angels' 
+	  ELSE LTRIM(RTRIM(mlb_team_long))
+	END as mlb_team_long
+	,LTRIM(RTRIM(mlb_name)) as name
+	,SUBSTRING(LTRIM(RTRIM(mlb_name)),1,CHARINDEX(' ',mlb_name))   as t_name
+	,SUBSTRING(LTRIM(RTRIM(mlb_name)),CHARINDEX(' ',mlb_name),LEN(mlb_name)) f_name
+	from mlb_data;
+	
+BEGIN
+
+  OPEN @mlb_players
+  FETCH NEXT
+  FROM @mlb_players INTO @team_name, @last_name, @first_name, @full_name;
+   
+  WHILE @@FETCH_STATUS = 0
+  BEGIN
+
+    SELECT @sport_team_id = id FROM sport_team
+	WHERE sport_type_name = 'baseball'
+	AND sport_league_short_name = 'MLB'
+	AND name = @team_name;
+
+    insert into player(sport_team_id, last_name, first_name, full_name)
+    values(@sport_team_id, @last_name, @first_name, @full_name);
+
+    FETCH NEXT
+    FROM @mlb_players INTO @team_name, @last_name, @first_name, @full_name;
+  END;
+  CLOSE @mlb_players;
+  DEALLOCATE @mlb_players; 
+END;
+
+go
+
+CREATE PROCEDURE loadNFLPlayers AS
+  DECLARE @nfl_players CURSOR;
+  DECLARE @team VARCHAR(10);
+  DECLARE @name VARCHAR(60);
+  DECLARE @l_name VARCHAR(30);
+  DECLARE @f_name VARCHAR(30);
+  DECLARE @sport_team_id INT;
+  SET @nfl_players = CURSOR FOR
+    SELECT team
+          ,name
+		  ,SUBSTRING(RTRIM(LTRIM(name)),1,CHARINDEX(',',name)-1) as l_name
+		  ,RTRIM(LTRIM(SUBSTRING(RTRIM(LTRIM(name)),CHARINDEX(',',name)+1,LEN(name)))) as f_name
+	FROM nfl_data;
+
+BEGIN
+  OPEN @nfl_players;
+  FETCH NEXT 
+  FROM @nfl_players INTO @team, @name, @l_name, @f_name;
+
+  WHILE @@FETCH_STATUS = 0
+  BEGIN
+    SELECT @sport_team_id = id FROM sport_team
+	WHERE sport_type_name = 'football'
+	AND sport_league_short_name = 'NFL'
+	AND abbreviated_name = @team;
+
+	insert into player(sport_team_id, last_name, first_name, full_name)
+    values(@sport_team_id, @l_name, @f_name, @name);
+
+    FETCH NEXT
+    FROM @nfl_players INTO @team, @name, @l_name, @f_name;
+  END;
+
+  CLOSE @nfl_players;
+  DEALLOCATE @nfl_players; 
+END;
+
+go

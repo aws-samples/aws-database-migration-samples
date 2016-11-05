@@ -1,0 +1,14 @@
+
+
+create table sport_type
+(name varchar(15) NOT NULL,
+ description varchar(120),
+ constraint sport_type_pk primary key(name)
+);
+
+insert into sport_type(name,description)
+values('baseball','A sport with 9 players, bats, and balls - what could possibly go wrong?');
+
+insert into sport_type(name,description)
+values('football','Teams of 11 players attempt to move an oblong ball 100 yards while beating the snot out of each other.');
+

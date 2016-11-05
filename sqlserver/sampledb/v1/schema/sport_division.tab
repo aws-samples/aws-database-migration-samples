@@ -1,0 +1,44 @@
+
+
+create table sport_division
+(sport_type_name varchar(15) NOT NULL
+   constraint sd_sport_type_fk references sport_type(name),
+ sport_league_short_name varchar(10) NOT NULL
+   constraint sd_sport_league_fk references sport_league(short_name),
+ short_name varchar(10) NOT NULL,
+ long_name varchar(60),
+ description varchar(120),
+ constraint sport_division_pk primary key(sport_type_name, sport_league_short_name, short_name)
+);
+
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('baseball','MLB','AL East','American League East','American League East');
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('baseball','MLB','AL Central','American League Central','American League Central');
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('baseball','MLB','AL West','American League West','American League West');
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('baseball','MLB','NL East','National League East','National League East');
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('baseball','MLB','NL Central','National League Central','National League Central');
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('baseball','MLB','NL West','National League West','National League West');
+
+
+
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('football','NFL','AFC East','American Football Conference East','American Football Conference East');
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('football','NFL','AFC West','American Football Conference West','American Football Conference West');
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('football','NFL','AFC North','American Football Conference North','American Football Conference North');
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('football','NFL','AFC South','American Football Conference South','American Football Conference South');
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('football','NFL','NFC East','National Football Conference East','National Football Conference East');
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('football','NFL','NFC West','National Football Conference West','National Football Conference West');
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('football','NFL','NFC North','National Football Conference North','National Football Conference North');
+insert into sport_division(sport_type_name,sport_league_short_name,short_name,long_name,description)
+values('football','NFL','NFC South','National Football Conference South','National Football Conference South');

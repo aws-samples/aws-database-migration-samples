@@ -1,0 +1,15 @@
+
+create table ticket_purchase_hist
+( sporting_event_ticket_id BIGINT NOT NUll
+    constraint tph_sport_event_tic_id references sporting_event_ticket(id)
+ ,purchased_by_id INT NOT NULL
+    constraint tph_ticketholder_id references person(id)
+ ,transaction_date_time DATETIME NOT NULL
+ ,transferred_from_id INT
+    constraint tph_transfer_from_id references person(id)
+ ,purchase_price SMALLMONEY NOT NULL
+ ,constraint ticket_purchase_hist_pk primary key(sporting_event_ticket_id, purchased_by_id, transaction_date_time)
+);
+
+create index tph_purch_by_id on ticket_purchase_hist(purchased_by_id);
+create index tph_trans_from_id on ticket_purchase_hist(transferred_from_id);

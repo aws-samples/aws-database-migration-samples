@@ -1,0 +1,16 @@
+
+create table sport_league
+(sport_type_name varchar(15) NOT NULL
+   constraint sl_sport_type_fk references sport_type(name),
+ short_name varchar(10) NOT NULL,
+ long_name varchar(60) NOT NULL,
+ description varchar(120),
+ constraint sport_league_pk primary key(short_name)
+);
+
+insert into sport_league(sport_type_name,short_name,long_name,description)
+values('baseball','MLB','Major League Baseball','Professional baseball league in North America.');
+
+insert into sport_league(sport_type_name,short_name,long_name,description)
+values('football','NFL','National Footbal League','Professional football league in North America.');
+
