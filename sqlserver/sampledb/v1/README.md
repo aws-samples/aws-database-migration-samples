@@ -11,7 +11,7 @@ it's designed to allow the user to get a feel for how to use the AWS Database Mi
 
 **Requirements:**
 * Any version of SQL Server compatible with DMS
-* Approximately 10GB of disk space
+* Approximately 50GB of disk space
 * You will need a privileged Administrative account to execute the scripts
 
 **Note:**
@@ -20,10 +20,10 @@ it's designed to allow the user to get a feel for how to use the AWS Database Mi
 * Objects are created in the schema: dbo
 
 ##Installation Instructions
-*Download the source
-*Open a PowerShell session
-*Change your directory to the location of the install script **...sqlserver\sampledb\v1**
-*Run the install script using the sqlcmd utility. If your on the database server:
+* Download the source
+* Open a PowerShell session
+* Change your directory to the location of the install script **...sqlserver\sampledb\v1**
+* Run the install script using the sqlcmd utility. If your on the database server:
 ```sql
 sqlcmd -i .\install-onprem.sql
 ```
@@ -31,7 +31,7 @@ sqlcmd -i .\install-onprem.sql
 
 **Ensure your authentication is set to: "SQL Server and Windows Authentication mode." To set this:**
 * Log into SQL Server Management Studio (SSMS)
-* Right click on the Server (WIN-<xxxxxxxx>)
+* Right click on the Server (WIN-< xxxxxxxx >)
 * Open "properties"
 * Choose "security"
 * On the right under Server Authentication choose "SQL Server and Windows Authentication mode."
