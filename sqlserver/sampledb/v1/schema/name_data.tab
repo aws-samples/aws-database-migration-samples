@@ -1,0 +1,6 @@
+
+create table name_data(
+ name_type VARCHAR(15) NOT NULL,
+ name      VARCHAR(45) NOT NULL,
+ constraint name_data_pk primary key(name_type, name)
+);

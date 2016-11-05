@@ -1,0 +1,149 @@
+create table seat
+( sport_location_id INT
+    constraint s_sport_location_fk references sport_location(id),
+  seat_level  INT,
+  seat_section  VARCHAR(15),
+  seat_row      VARCHAR(10),
+  seat     VARCHAR(10),
+  seat_type VARCHAR(15)
+   constraint seat_type_fk references seat_type(name),
+  constraint seat_pk primary key (sport_location_id, seat_level, seat_section, seat_row, seat)
+);
+
+create index seat_sport_location_idx on seat(sport_location_id);
+
+go
+
+CREATE procedure generateSeats as
+  DECLARE @loc_cur CURSOR;
+  SET @loc_cur = CURSOR FOR 
+    SELECT id, seating_capacity, levels, sections
+    FROM sport_location;
+
+  DECLARE @sport_location_id INT;
+  DECLARE @seating_capacity INT;
+  DECLARE @levels INT;
+  DECLARE @sections INT;	
+
+  DECLARE @seat_tab TABLE (
+      sport_location_id INT,
+      seat_level        INT,
+      seat_section      VARCHAR(15),
+      seat_row          VARCHAR(10),
+      seat              VARCHAR(10),
+      seat_type         VARCHAR(15)
+     );
+
+
+    DECLARE @seat_type_tab TABLE (
+	  id INT NOT NULL PRIMARY KEY CLUSTERED,
+	  name   varchar(15)
+	);
+	DECLARE @seat_type varchar(15);
+	DECLARE @rowCt INT;
+
+	DECLARE @i INT;
+	DECLARE @j INT;
+	DECLARE @k INT;
+	DECLARE @l INT;
+
+	DECLARE @tot_seats INT;
+	DECLARE @rows INT;
+	DECLARE @seats INT;
+	DECLARE @seat_count INT;
+
+    DECLARE @max_rows_per_section INT;
+	SET     @max_rows_per_Section = 25;
+    DECLARE @min_rows_per_section INT;
+	SET     @min_rows_per_section = 15;
+
+	DECLARE @s_ref VARCHAR(30);
+	SET     @s_ref = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+BEGIN
+  -- load seat type percentage table
+  SET @rowCt = 0;
+  WHILE @rowCt < 100
+   BEGIN
+    SET @rowCt = @rowCt +1;
+	SET @seat_type = 
+	CASE 
+      WHEN  @rowCt <= 5                 THEN 'luxury'       -- 5% luxury seats
+      WHEN  5 < @rowCt AND @rowCt <= 35  THEN  'premium'      -- 30% premium seats
+      WHEN 35 < @rowCt AND @rowCt <= 89  THEN  'standard'     -- 54% standard seats 
+      WHEN 89 < @rowCt AND @rowCt <= 99  THEN 'sub-standard' -- 10% sub-standard seats
+      WHEN  @rowCt = 100                THEN 'obstructed'   -- 1% obstructed seats
+    END;
+	
+	INSERT INTO @seat_type_tab(id,name)
+	VALUES(@rowCt,@seat_type);
+  END;
+
+
+  OPEN @loc_cur 
+  FETCH NEXT
+  FROM @loc_cur INTO @sport_location_id, @seating_capacity , @levels, @sections;
+
+  WHILE @@FETCH_STATUS = 0
+  BEGIN
+    SET @seat_count = 0;
+    SET @tot_seats = 0;
+    SET @rows = floor(rand() * (@max_rows_per_section - @min_rows_per_section + 1)) + @min_rows_per_section;
+	SET @seats = ROUND(@seating_capacity/(@levels*@sections*@rows)+1,0,1);
+
+	SET @i = 1;
+	SET @j = 1;
+	SET @k = 1;
+	SET @l = 1;
+	WHILE @i <= @levels
+	 BEGIN
+	  SET @i = @i +1;
+	  WHILE @j <= @sections 
+	   BEGIN
+	    SET @j = @j +1;
+	    WHILE @k <= @rows
+		 BEGIN
+		  SET @k  = @k +1;
+		  WHILE @l <= @seats
+		   BEGIN
+		    SET @l = @l +1;
+			SET @tot_seats = @tot_seats +1;
+			IF @tot_seats <= @seating_capacity
+			  BEGIN
+			    SELECT @seat_type = name from @seat_type_tab where id = floor(rand()*(100 - 1 +1)) +1;
+
+			    INSERT INTO @seat_tab(sport_location_id,seat_level,seat_section,seat_row,seat,seat_type)
+				VALUES(@sport_location_id,@i,@j,SUBSTRING(@s_ref,@k,1),@l,@seat_type);
+
+				SET @seat_count = @seat_count +1;
+				IF @seat_count > 1000
+				  BEGIN
+				    INSERT INTO seat(sport_location_id,seat_level,seat_section,seat_row,seat,seat_type)
+					SELECT sport_location_id,seat_level,seat_section,seat_row,seat,seat_type
+					FROM @seat_tab;
+
+					DELETE FROM @seat_tab;
+					SET @seat_count = 1;
+				  END;
+   			  END;
+		   END;
+		   SET @l = 0;
+		 END;
+		 SET @k = 0;
+	   END;
+	   SET @j = 0;
+	 END;
+
+	 INSERT INTO seat(sport_location_id,seat_level,seat_section,seat_row,seat,seat_type)
+	 SELECT sport_location_id,seat_level,seat_section,seat_row,seat,seat_type
+	 FROM @seat_tab;
+
+	 DELETE FROM @seat_tab;
+	 SET @tot_seats = 1;
+	 
+	 FETCH NEXT
+     FROM @loc_cur INTO @sport_location_id, @seating_capacity , @levels, @sections;
+  END;
+END;
+
+go

@@ -1,0 +1,112 @@
+
+create table sport_location
+(id INT IDENTITY(1,1) NOT NULL,
+ name varchar(60) NOT NULL,
+ city varchar(60) NOT NULL,
+ seating_capacity INT,
+ levels INT,
+ sections INT,
+ constraint sport_location_pk primary key(id)
+);
+go
+
+BEGIN
+SET IDENTITY_INSERT  dbo.sport_location ON; 
+insert into sport_location(id,name,city,seating_capacity)
+values(1,'Angel Stadium','Anaheim California',45483);
+insert into sport_location(id,name,city,seating_capacity)
+values(2,'AT&T Park','San Francisco California',41915);
+insert into sport_location(id,name,city,seating_capacity)
+values(3,'Busch Stadium','St Louis Missouri',43975);
+insert into sport_location(id,name,city,seating_capacity)
+values(4,'Chase Field','Phoenix Arizona',48519);
+insert into sport_location(id,name,city,seating_capacity)
+values(5,'Citi Field','Queens New York',41922);
+insert into sport_location(id,name,city,seating_capacity)
+values(6,'Citizens Bank Park','Philadelphia Pennsylvania',43651);
+insert into sport_location(id,name,city,seating_capacity)
+values(7,'Comercia Park','Detroit Michigan',41297);
+insert into sport_location(id,name,city,seating_capacity)
+values(8,'Coors Field','Denver Colorado',50398);
+insert into sport_location(id,name,city,seating_capacity)
+values(9,'Dodger Stadium','Los Angeles California',56000);
+insert into sport_location(id,name,city,seating_capacity)
+values(10,'Fenway Park','Boston Massachusetts',37949);
+insert into sport_location(id,name,city,seating_capacity)
+values(11,'GLobe Life Park','Arlington Texas',48114);
+insert into sport_location(id,name,city,seating_capacity)
+values(12,'Great American Ball Park','Cincinnati Ohio',42319);
+insert into sport_location(id,name,city,seating_capacity)
+values(13,'Kauffman Stadium','Kansas City Missouri',37903);
+insert into sport_location(id,name,city,seating_capacity)
+values(14,'Martins Park','Miami Florida',36742);
+insert into sport_location(id,name,city,seating_capacity)
+values(15,'Miller Park','Milwaukee Wisconsin',41900);
+insert into sport_location(id,name,city,seating_capacity)
+values(16,'Minute Maid Park','Houston Texas',41676);
+insert into sport_location(id,name,city,seating_capacity)
+values(17,'Nationals Park','Washington D.C.',41313);
+insert into sport_location(id,name,city,seating_capacity)
+values(18,'Oakland Coliseum','Oakland California',35067);
+insert into sport_location(id,name,city,seating_capacity)
+values(19,'Camden Yards','Baltimore Maryland',45971);
+insert into sport_location(id,name,city,seating_capacity)
+values(20,'Petco Park','San Diego California',40162);
+insert into sport_location(id,name,city,seating_capacity)
+values(21,'PNC Park','Pittsburgh Pennsylvania',38362);
+insert into sport_location(id,name,city,seating_capacity)
+values(22,'Progressive Field','Cleveland Ohio',35225);
+insert into sport_location(id,name,city,seating_capacity)
+values(23,'Rogers Centre','Toronto Ontario',49282);
+insert into sport_location(id,name,city,seating_capacity)
+values(24,'Safeco Field','Seattle Washington',47963);
+insert into sport_location(id,name,city,seating_capacity)
+values(25,'Target Field','Minneapolis Minnesota',38871);
+insert into sport_location(id,name,city,seating_capacity)
+values(26,'Tropicana Field','St. Petersburg Florida',31042);
+insert into sport_location(id,name,city,seating_capacity)
+values(27,'Turner Field','Atlanta Georgia',49586);
+insert into sport_location(id,name,city,seating_capacity)
+values(28,'US Cellular Field','Chicago Illinois',40615);
+insert into sport_location(id,name,city,seating_capacity)
+values(29,'Wrigley Field','Chicago Illinois',41268);
+insert into sport_location(id,name,city,seating_capacity)
+values(30,'Yankee Stadium','Bronx New York',49642);
+
+SET IDENTITY_INSERT  dbo.sport_location OFF; 
+END;
+go
+
+BEGIN
+UPDATE sport_location
+SET levels = 2
+WHERE seating_capacity < 50000
+AND levels is null;
+
+UPDATE sport_location
+SET levels = 3
+WHERE seating_capacity >= 50000
+AND levels is null;
+
+UPDATE sport_location 
+SET sections = ROUND(seating_capacity/1000,0)
+WHERE sections is null;
+END;
+
+INSERT INTO sport_location(name, city, seating_capacity, sections)
+SELECT  stadium, location, seating_capacity, ROUND(seating_capacity/1000,0)
+FROM nfl_stadium_data;
+ 
+UPDATE nfl_stadium_data 
+set sport_location_id = (select min(id) from sport_location where sport_location.city = nfl_stadium_data.location);
+
+UPDATE sport_location
+SET levels = 2
+WHERE seating_capacity < 75000
+AND levels is null;
+
+UPDATE sport_location
+SET levels = 3
+WHERE seating_capacity >= 75000
+AND levels is null;
+go

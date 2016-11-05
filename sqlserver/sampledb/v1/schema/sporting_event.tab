@@ -1,0 +1,25 @@
+
+create table sporting_event
+(id   bigint IDENTITY(1,1) NOT NULL,
+ sport_type_name  VARCHAR(15) NOT NULL
+  constraint se_sport_type_fk references sport_type(name),
+ home_team_id     INT NOT NULL
+  constraint se_home_team_id_fk references sport_team(id),
+ away_team_id     INT NOT NULL
+  constraint se_away_team_id_fk references sport_team(id),
+ location_id      INT NOT NULL
+  constraint se_location_id_fk references sport_location(id),
+ start_date_time  DATETIME NOT NULL,
+ start_date AS CONVERT(DATE,start_date_time),
+ sold_out         INT DEFAULT 0 NOT NULL,
+ constraint chk_sold_out CHECK (sold_out IN (0,1)),
+ constraint sporting_event_pk primary key(id)
+)
+go
+
+create index se_start_date on sporting_event(start_date)
+go
+
+
+
+

@@ -1,0 +1,12 @@
+
+create table person
+(ID int IDENTITY(1,1) NOT NULL,
+ full_name        varchar(60) NOT NULL,
+ last_name        varchar(30),
+ first_name       varchar(30),
+ constraint person_pk primary key(id)
+);
+
+
+
+
