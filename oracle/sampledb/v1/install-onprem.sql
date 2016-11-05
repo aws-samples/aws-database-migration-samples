@@ -69,11 +69,9 @@ ALTER DATABASE ADD SUPPLEMENTAL LOG DATA (PRIMARY KEY) COLUMNS;
 --
 ---------------------------------------------------------
 -- run the following scripts:
-connect dms_sample/dms_sample
-@load_base_data.sql
-@install_dms_sample_data.sql
-
-
+alter session set current_schema = dms_sample;
+@schema/load_base_data.sql
+@schema/install_dms_sample_data.sql
 
 
 -- stop spooling
