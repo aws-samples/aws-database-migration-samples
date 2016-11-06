@@ -76,12 +76,12 @@ exec generateTransferActivity 100
 
 ##Object descriptions
 ### PROCEDURES
-* **GENERATESEATS:** Randomly generates seats for each stadium in a "realistic" fashion
-* **GENERATE_TICKETS:** Generates a ticket for each seat for each event.
-* **LOADMLBPLAYERS:** Loads the Major League Baseball players from the base data
-* **LOADMLBTEAMS:** Loads the Major League Baseball team data from the base data
-* **LOADNFLPLAYERS:** Loads the NFL players from the base data
-* **LOADNFLTEAMS:** Loads the NFL teams from the base data
+* **generateSeats:** Randomly generates seats for each stadium in a "realistic" fashion
+* **generate_tickets:** Generates a ticket for each seat for each event.
+* **loadMLBPlayers:** Loads the Major League Baseball players from the base data
+* **loadMLBTeams:** Loads the Major League Baseball team data from the base data
+* **loadNFLPlayers:** Loads the NFL players from the base data
+* **loadNFLTeams:** Loads the NFL teams from the base data
 * **sellTickets:** Sells ticket(s) to a person
 * **transferTicket:** Transfers ticket(s) from one person to another
 * **generateTicketActivity:** Repeatedly sells a random number of tickets (1-6) to a random person (calls sellTickets)
@@ -91,24 +91,24 @@ exec generateTransferActivity 100
 * **rand_int:** Generates a random integer between a max and min values
 
 ### TABLES
-* **MLB_DATA:** Holds Major League Baseball base data. This is used to generate player, team and stadium data.
-* **NAME_DATA:** Holds name data used to randomly generate a large number of PEOPLE who can buy tickets etc.
-* **NFL_DATA:** Hods NFL base data. This is used to generate player and team data.
-* **NFL_STADIUM_DATA:** Holds information about NFL stadiums. Used to generate stadium data etc.
-* **PERSON:** Randomly generated people who can buy tickets.
-* **PLAYER:** A player of a sport - currently either baseball or football.
-* **SEAT:** A specific seat in a specific stadium for which a person can buy a ticket.
-* **SEAT_TYPE:** The type of seat: standard, premium, obstructed, etc.
-* **SPORTING_EVENT:** A specific meeting between two teams at a specific time and place where they will do battle.
-* **SPORTING_EVENT_TICKET:** A ticket which, for a price, allows a person to sit their butt in a seat and watch a sporting event.
-* **SPORT_DIVISION:** Football has divisions like: AFC WEST, NFC EAST. It allows them to organize their battles and create rivalries.
-* **SPORT_LEAGUE** On organized group of teams of the same sport: NFL - National Football League; MLB - Major League Baseball
-* **SPORT_LOCATION:** A battlefield where teams meet and attempt to destroy each other. Century Link Field (home of the Hawks) is particularly intimidating.
-* **SPORT_TEAM:** An organized group of people who play the same sport. The Seattle Seahawks, (an NFL team), are particularly menacing.
-* **SPORT_TYPE:** Baseball or Football - what's your pleasure?
-* **TICKET_PURCHASE_HIST:** A recording of every ticket purchas (including transfers) ever made in this system. (Even scalping is recorded here.)
+* **mlb_data:** Holds Major League Baseball base data. This is used to generate player, team and stadium data.
+* **name_data:** Holds name data used to randomly generate a large number of PEOPLE who can buy tickets etc.
+* **nfl_data:** Hods NFL base data. This is used to generate player and team data.
+* **nfl_stadium_data:** Holds information about NFL stadiums. Used to generate stadium data etc.
+* **person:** Randomly generated people who can buy tickets.
+* **player:** A player of a sport - currently either baseball or football.
+* **seat:** A specific seat in a specific stadium for which a person can buy a ticket.
+* **seat_type:** The type of seat: standard, premium, obstructed, etc.
+* **sporting_event:** A specific meeting between two teams at a specific time and place where they will do battle.
+* **sporting_event_ticket:** A ticket which, for a price, allows a person to sit their butt in a seat and watch a sporting event.
+* **sport_division:** Football has divisions like: AFC WEST, NFC EAST. It allows them to organize their battles and create rivalries.
+* **sport_league:** On organized group of teams of the same sport: NFL - National Football League; MLB - Major League Baseball
+* **sport_location:** A battlefield where teams meet and attempt to destroy each other. Century Link Field (home of the Hawks) is particularly intimidating.
+* **sport_team:** An organized group of people who play the same sport. The Seattle Seahawks, (an NFL team), are particularly menacing.
+* **sport_type:** Baseball or Football - what's your pleasure?
+* **ticket_purchase_hist:** A recording of every ticket purchas (including transfers) ever made in this system. (Even scalping is recorded here.)
 
 ### VIEWS
-* **SPORTING_EVENT_INFO:** An aggregated view of everything important about a specific sporting event.
-* **SPORTING_EVENT_TICKET_INFO:** An consolidated view of all information pertinent to a ticket.
+* **sporting_event_info:** An aggregated view of everything important about a specific sporting event.
+* **sporting_event_ticket_info:** An consolidated view of all information pertinent to a ticket.
 
