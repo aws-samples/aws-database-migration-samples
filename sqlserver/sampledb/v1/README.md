@@ -12,7 +12,7 @@ it's designed to allow the user to get a feel for how to use the AWS Database Mi
 The installation process creates the database, loads the data, and sets the database up for replication using DMS.
 
 **Requirements:**
-* Any version of SQL Server compatible with DMS
+* Any version of SQL Server compatible with DMS **NOTE: SQL Server 2016 is not yet supported for CDC**
 * Approximately 50GB of disk space
 * You will need a privileged Administrative account to execute the scripts
 
