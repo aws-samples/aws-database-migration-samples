@@ -47,10 +47,10 @@ sqlcmd -i .\install-onprem.sql
 
 ## Repo Structure
 There are five directories below this main directory. they are:
-* data: files containing base data used by the system. These are here for reference only.
-* user: scripts for creating and adding loging capability to the dms_user
-* schema: scripts used for creating schema objects (including procedures and functions etc.) also included are some scripts used in generating data
-* system: scripts used to enable replication and create the initial backup of the database
+* **data:** files containing base data used by the system. These are here for reference only.
+* **user:** scripts for creating and adding loging capability to the dms_user
+* **schema:** scripts used for creating schema objects (including procedures and functions etc.) also included are some scripts used in generating data
+* **system:** scripts used to enable replication and create the initial backup of the database
 
 ## Future Versions
 Future versions of the sampledb will include objects usefull for demonstrating or practicing tricky, complicated or advanced migration/conversion techniques. Examples may include:
