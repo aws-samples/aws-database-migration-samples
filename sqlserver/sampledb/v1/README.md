@@ -9,6 +9,8 @@ ticketing application. The scripts will also load approximately 8.5 GB of data i
 The sampledb is not meant as an example of how one might ideally build a sports ticketing system rather,
 it's designed to allow the user to get a feel for how to use the AWS Database Migration Service and Schema Converstion Tool.
 
+The installation process creates the database, loads the data, and sets the database up for replication using DMS.
+
 **Requirements:**
 * Any version of SQL Server compatible with DMS
 * Approximately 50GB of disk space
