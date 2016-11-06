@@ -45,58 +45,50 @@ sqlcmd -i .\install-onprem.sql
  * instructions on how to generate transactions for the sampledb
  * description of most of the objects included in the sampledb
 
-## repo structure
+## Repo Structure
 There are five directories below this main directory. they are:
 * data: files containing base data used by the system. These are here for reference only.
 * user: scripts for creating and adding loging capability to the dms_user
 * schema: scripts used for creating schema objects (including procedures and functions etc.) also included are some scripts used in generating data
 * system: scripts used to enable replication and create the initial backup of the database
 
-## future versions
+## Future Versions
 Future versions of the sampledb will include objects usefull for demonstrating or practicing tricky, complicated or advanced migration/conversion techniques. Examples may include:
 * working with large objects (BLOBS, CLOBS, etc.)
 * working with filtering
 * working with transformations
-* working with partitioned tables - fan out, fan in, etc.
-* more sports/more data (currently only football and baseball are represented.)
-* etc.
+* working er account dms_user is created when the sampledb is installed in SQL Server. This account should be used when connecting to the sampledb from the Schema Conversion Tool or the Database Migratoin Service.
 
-## using the sampledb with DMS or SCT
-The login and user account dms_user is created when the sampledb is installed in SQL Server. This account should be used when connecting to the sampledb from the Schema Conversion Tool or the Database Migratoin Service.
-
-## generating transactions
+## Generating Transactions
 Most people who use DMS will want to exercise change capture and apply (CDC.) The sampledb includes some procedures designed to generate transactions on your source system. The procedures are called: generateTicketActivity and generateTransferActivity. 
 
 The following will generate 1000 ticket sales in batches of 1-6 tickets to randomly selected people for a random price (within a range.) A record of each transaction is recorded in the ticket_purchase_hist table:
-```
+```sql
 use dms_sample;
 exec generateTicketActivity 1000 
 ```
 
 Once you've sold some tickets you can run the generateTransferActivity procedure. The following will transfer tickets from the owner to another person. The whole "batch" of tickets purchased is transferred 80% of the time and 20% of the time an individual ticket is transferred.
-```
+```sql
 use dms_sample
 exec generateTransferActivity 100
 ````
 
 ##Object descriptions
-###PACKAGES
-* **TICKETMANAGEMENT:** Details above under "generating transactions"
-
 ### PROCEDURES
-* **GENERATESEATS:** Randomly generates seats for each stadium in a "realistic" fashion.
+* **GENERATESEATS:** Randomly generates seats for each stadium in a "realistic" fashion
 * **GENERATE_TICKETS:** Generates a ticket for each seat for each event.
 * **LOADMLBPLAYERS:** Loads the Major League Baseball players from the base data
 * **LOADMLBTEAMS:** Loads the Major League Baseball team data from the base data
 * **LOADNFLPLAYERS:** Loads the NFL players from the base data
 * **LOADNFLTEAMS:** Loads the NFL teams from the base data
+* **sellTickets:** Sells ticket(s) to a person
+* **transferTicket:** Transfers ticket(s) from one person to another
+* **generateTicketActivity:** Repeatedly sells a random number of tickets (1-6) to a random person (calls sellTickets)
+* **generateTransferActivity:** Repeatedly transfers tickets from one person to another. 80% are transferred as a group, 20% as singlets (calls transferTicket)
 
-### SEQUENCES
-* **PLAYER_SEQ:** Used to generate surrogate key for players
-* **SPORTING_EVENT_SEQ:** Used to generate surrogate key for sporting events
-* **SPORTING_EVENT_TICKET_SEQ:** used to generate surrogate key for tickets
-* **SPORT_LOCATION_SEQ:** used to generate surrogate key for sport locations (stadiums etc.)
-* **SPORT_TEAM_SEQ:** used to generate surrogate key for sports teams
+### FUNCTIONS
+* **rand_int:** Generates a random integer between a max and min values
 
 ### TABLES
 * **MLB_DATA:** Holds Major League Baseball base data. This is used to generate player, team and stadium data.
