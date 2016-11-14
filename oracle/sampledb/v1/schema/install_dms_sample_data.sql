@@ -145,7 +145,7 @@ DECLARE
   stmt VARCHAR2(200);
 BEGIN
   FOR trec IN tabcur LOOP
-    stmt := 'grant select, insert, update, delete on dms_sample.' || trec.table_name || ' to dms_user';
+    stmt := 'grant select, insert, update, delete, alter on dms_sample.' || trec.table_name || ' to dms_user';
     dbms_output.put_line('Granting privileges to dms_user on: ' || trec.table_name );
     EXECUTE IMMEDIATE stmt;
   END LOOP;
