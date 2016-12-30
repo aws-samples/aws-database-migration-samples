@@ -1,0 +1,141 @@
+create table if not exists seat
+( sport_location_id SMALLINT,
+  seat_level    SMALLINT,
+  seat_section  VARCHAR(15),
+  seat_row      VARCHAR(10),
+  seat     VARCHAR(10),
+  seat_type VARCHAR(15),
+  constraint seat_pk primary key (sport_location_id, seat_level, seat_section, seat_row, seat),
+  constraint s_sport_location_fk foreign key(sport_location_id) references sport_location(id),
+  constraint seat_type_fk foreign key(seat_type) references seat_type(name)
+);
+
+create index seat_sport_location_idx on seat(sport_location_id);
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS generateSeats $$
+
+CREATE PROCEDURE generateSeats()
+BEGIN
+  DECLARE done INT DEFAULT FALSE;
+
+  DECLARE v_sport_location_id SMALLINT;
+  DECLARE v_seating_capacity INT;
+  DECLARE v_levels TINYINT;
+  DECLARE v_sections SMALLINT;
+
+  DECLARE v_seat_type varchar(15);
+  DECLARE v_rowCt INT;
+
+  DECLARE i INT;
+  DECLARE j INT;
+  DECLARE k INT;
+  DECLARE l INT;
+
+  DECLARE v_tot_seats INT;
+  DECLARE v_rows INT;
+  DECLARE v_seats INT;
+  DECLARE v_seat_count INT;
+  DECLARE v_seat_idx INT;
+
+  DECLARE v_max_rows_per_section INT DEFAULT 25;
+  DECLARE v_min_rows_per_section INT DEFAULT 15;
+
+  DECLARE s_ref VARCHAR(30) DEFAULT 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+
+  DECLARE loc_cur CURSOR FOR
+    SELECT id, seating_capacity, levels, sections
+    FROM sport_location;
+
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  drop table if exists seat_tab;
+  drop table if exists seat_type_tab;
+  create temporary table seat_tab select sport_location_id, seat_level, seat_section, seat_row, seat, seat_type from seat;
+  create temporary table seat_type_tab(id INT PRIMARY KEY, name varchar(15));
+
+
+  SET v_rowCt = 0;
+  WHILE v_rowCt < 100 DO
+    SET v_rowCt = v_rowCt + 1;
+
+    IF v_rowCt <= 5 THEN SET v_seat_type = 'luxury';  -- 5% luxury seats
+    END IF;
+    IF 5 < v_rowCt AND v_rowCt <= 35  THEN SET v_seat_type = 'premium';      -- 30% premium seats
+    END IF;
+    IF 35 < v_rowCt AND v_rowCt <= 89  THEN SET v_seat_type = 'standard';     -- 54% standard seats
+    END IF;
+    IF 89 < v_rowCt AND v_rowCt <= 99  THEN SET v_seat_type = 'sub-standard'; -- 10% sub-standard seats
+    END IF;
+    IF v_rowCt = 100                THEN SET v_seat_type = 'obstructed';   -- 1% obstructed seats
+    END IF;
+
+    INSERT INTO seat_type_tab(id,name) VALUES(v_rowCt,v_seat_type);
+  END WHILE;
+
+  OPEN loc_cur;
+  read_loop: LOOP
+    FETCH NEXT FROM loc_cur INTO v_sport_location_id, v_seating_capacity, v_levels, v_sections;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+
+    SET v_seat_count = 0;
+    SET v_tot_seats = 0;
+    SET v_rows = floor(rand() * (v_max_rows_per_section - v_min_rows_per_section + 1)) + v_min_rows_per_section;
+    SET v_seats = TRUNCATE(v_seating_capacity/(v_levels*v_sections*v_rows)+1,0);
+
+    SET i = 1;
+    SET j = 1;
+    SET k = 1;
+    SET l = 1;
+    WHILE i <= v_levels DO
+      SET i = i +1;
+      WHILE j <= v_sections DO
+         SET j = j +1;
+         WHILE k <= v_rows DO
+           SET k  = k +1;
+           WHILE l <= v_seats DO
+             SET l = l +1;
+             SET v_tot_seats = v_tot_seats +1;
+             IF v_tot_seats <= v_seating_capacity THEN
+               SET v_seat_idx = FLOOR(RAND()*(100 - 1 + 1)) +1;
+               SELECT name INTO v_seat_type FROM seat_type_tab where id = v_seat_idx;
+               INSERT INTO seat_tab(sport_location_id,seat_level,seat_section,seat_row,seat,seat_type)
+               VALUES(v_sport_location_id,i,j,SUBSTRING(s_ref,k,1),l,v_seat_type);
+
+               SET v_seat_count = v_seat_count +1;
+               IF v_seat_count > 1000 THEN
+                 INSERT INTO seat(sport_location_id,seat_level,seat_section,seat_row,seat,seat_type)
+                             SELECT v_sport_location_id,seat_level,seat_section,seat_row,seat,v_seat_type
+                             FROM seat_tab;
+
+                 DELETE FROM seat_tab;
+                SET v_seat_count = 1;
+               END IF;
+             END IF;
+            END WHILE;
+            SET l = 0;
+          END WHILE;
+          SET k = 0;
+        END WHILE;
+        SET j = 0;
+    END WHILE;
+
+    INSERT INTO seat(sport_location_id,seat_level,seat_section,seat_row,seat,seat_type)
+    SELECT v_sport_location_id,seat_level,seat_section,seat_row,seat,v_seat_type
+    FROM seat_tab;
+
+    DELETE FROM seat_tab;
+    SET v_tot_seats = 1;
+
+   END LOOP;
+
+   CLOSE loc_cur;
+
+END;
+$$
+
+DELIMITER ;

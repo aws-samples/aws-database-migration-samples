@@ -1,0 +1,22 @@
+
+create table if not exists sporting_event
+(id  BIGINT  NOT NULL AUTO_INCREMENT,
+ sport_type_name  VARCHAR(15) NOT NULL,
+ home_team_id     MEDIUMINT NOT NULL,
+ away_team_id     MEDIUMINT NOT NULL,
+ location_id      SMALLINT NOT NULL,
+ start_date_time  DATETIME NOT NULL,
+ start_date       DATE NOT NULL,
+ sold_out         BOOLEAN DEFAULT FALSE NOT NULL,
+ constraint sporting_event_pk primary key(id),
+ constraint se_sport_type_fk foreign key(sport_type_name) references sport_type(name),
+ constraint se_home_team_id_fk foreign key(home_team_id) references sport_team(id),
+ constraint se_away_team_id_fk foreign key(away_team_id) references sport_team(id),
+ constraint se_location_id_fk foreign key(location_id) references sport_location(id)
+);
+
+create index se_start_date on sporting_event(start_date);
+
+
+
+

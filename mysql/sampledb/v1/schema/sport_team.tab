@@ -1,0 +1,159 @@
+
+create table  if not exists sport_team
+(id MEDIUMINT NOT NULL AUTO_INCREMENT,
+ name             varchar(30) NOT NULL,
+ abbreviated_name varchar(10),
+ home_field_id    SMALLINT,
+ sport_type_name       varchar(15) NOT NULL,
+ sport_league_short_name  varchar(10) NOT NULL,
+ sport_division_short_name varchar(10),
+ constraint sport_team_pk primary key(id),
+ constraint home_field_fk foreign key(home_field_id) references sport_location(id),
+ constraint st_sport_type_fk foreign key(sport_type_name) references sport_type(name)
+);
+
+-- unique index to enforce unique names w/in a sport type and league
+create unique index sport_team_u on sport_team(sport_type_name,sport_league_short_name,name);
+
+
+-- Load NFL Data
+  SET @v_sport_Type = 'football';
+  SET @v_league = 'NFL';
+  SET @v_division = 'AFC North';
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Baltimore Ravens','BAL',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Cincinnati Bengals','CIN',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Cleveland Browns','CLE',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Pittsburgh Steelers','PIT',@v_sport_type,@v_league,@v_division);
+
+  SET @v_division = 'AFC South';
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Houston Texans','HOU',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Indianapolis Colts','IND',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Jacksonville Jaguars','JAX',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Tennessee Titans','TEN',@v_sport_type,@v_league,@v_division);
+
+  SET @v_division = 'AFC East';
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Buffalo Bills','BUF',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Miami Dolphins','MIA',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('New England Patriots','NE',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('New York Jets','NYJ',@v_sport_type,@v_league,@v_division);
+
+  SET @v_division = 'AFC West';
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Denver Broncos','DEN',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Kansas City Chiefs','KC',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Oakland Raiders','OAK',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('San Diego Chargers','SD',@v_sport_type,@v_league,@v_division);
+
+  SET @v_division = 'NFC North';
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Chicago Bears','CHI',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Detroit Lions','DET',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Green Bay Packers','GB',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Minnesota Vikings','MIN',@v_sport_type,@v_league,@v_division);
+
+  SET @v_division = 'NFC South';
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Atlanta Falcons','ATL',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Carolina Panthers','CAR',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('New Orleans Saints','NO',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Tampa Bay Buccaneers','TB',@v_sport_type,@v_league,@v_division);
+
+  SET @v_division = 'NFC East';
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Dallas Cowboys','DAL',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('New York Giants','NYG',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Philadelphia Eagles','PHI',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Washington Redskins','WAS',@v_sport_type,@v_league,@v_division);
+
+  SET @v_division = 'NFC West';
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Arizona Cardinals','ARI',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Los Angeles Rams','LA',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('San Francisco 49ers','SF',@v_sport_type,@v_league,@v_division);
+  INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+  VALUES ('Seattle Seahawks','SEA',@v_sport_type,@v_league,@v_division);
+
+-- Load MLB Data
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS LoadMLBTeams $$
+
+CREATE PROCEDURE LoadMLBTeams()
+BEGIN
+  DECLARE done INT DEFAULT FALSE;
+
+  DECLARE v_div varchar(10);
+  DECLARE l_name varchar(30);
+  DECLARE a_name varchar(30);
+
+  DECLARE mlbTeamsCursor CURSOR FOR
+  select distinct
+    CASE LTRIM(RTRIM(mlb_team))
+      WHEN 'AAA' THEN 'LAA'
+	  ELSE LTRIM(RTRIM(mlb_team))
+    END as mlb_team
+   ,CASE LTRIM(RTRIM(mlb_team_long))
+      WHEN 'Anaheim Angels' THEN 'Los Angeles Angels'
+      ELSE LTRIM(RTRIM(mlb_team_long))
+    END as mlb_team_long
+  from mlb_data;
+
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN mlbTeamsCursor;
+
+  read_loop: LOOP
+    FETCH mlbTeamsCursor INTO a_name, l_name;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+
+     CASE a_name
+       WHEN  'BAL' || 'BOS' || 'TOR' || 'TB'  || 'NYY' THEN SET v_div = 'AL East';
+       WHEN  'CLE' || 'DET' || 'KC'  || 'CWS' || 'MIN' THEN  SET v_div = 'AL Central';
+       WHEN  'TEX' || 'SEA' || 'HOU' || 'OAK' || 'LAA' THEN  SET v_div = 'AL West';
+       WHEN  'WSH' || 'MIA' || 'NYM' || 'PHI' || 'ATL' THEN SET v_div = 'NL East';
+       WHEN  'CHC' || 'STL' || 'PIT' || 'MIL' || 'CIN' THEN  SET v_div = 'NL Central';
+       WHEN  'COL' || 'SD'  || 'LAD' || 'SF'  || 'ARI' THEN  SET v_div = 'NL West';
+      END CASE;
+
+    insert into sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
+    values(l_name, a_name, 'baseball','MLB',v_div);
+
+  END LOOP;
+
+  CLOSE mlbTeamsCursor;
+END;
+$$
+
+DELIMITER ;
+
+call LoadMLBTeams;
+
+DROP PROCEDURE IF EXISTS LoadMLBTeams;

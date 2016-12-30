@@ -1,0 +1,18 @@
+
+create table if not exists person
+(ID MEDIUMINT  NOT NULL AUTO_INCREMENT,
+ full_name        varchar(60) NOT NULL,
+ last_name        varchar(30),
+ first_name       varchar(30),
+ constraint person_pk primary key(id)
+);
+
+INSERT INTO person(full_name, last_name, first_name)
+SELECT  CONCAT(first.name, ' ', last.name)
+       ,last.name
+       ,first.name
+FROM   name_data first, name_data last
+WHERE  first.name_type != 'LAST'
+AND    last.name_type  = 'LAST';
+
+

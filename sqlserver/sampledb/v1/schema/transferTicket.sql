@@ -13,7 +13,6 @@ BEGIN TRY
         ,sporting_event_ticket t
   WHERE  t.id = @ticket_id
   AND    h.purchased_by_id = t.ticketholder_id
-  AND    ((h.sporting_event_ticket_id = @ticket_id) OR (@transfer_all = 1) )
   GROUP BY t.ticketholder_id;
 
   -- get all tickets purchased at the same time for that event by that ticketholder
@@ -22,7 +21,8 @@ BEGIN TRY
   SELECT sporting_event_ticket_id, purchase_price 
   FROM ticket_purchase_hist
   WHERE  purchased_by_id = @old_ticketholder_id
-  AND    transaction_date_time = @last_txn_date;
+  AND    transaction_date_time = @last_txn_date
+  AND    ((sporting_event_ticket_id = @ticket_id) OR (@transfer_all = 1) );
 
   OPEN @xfer_cur;
   FETCH @xfer_cur INTO @sporting_event_ticket_id, @purchase_price;

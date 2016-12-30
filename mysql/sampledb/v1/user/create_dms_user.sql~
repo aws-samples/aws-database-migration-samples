@@ -1,0 +1,5 @@
+
+CREATE USER 'dms_user'@'%' IDENTIFIED BY 'dms_user';
+
+GRANT ALL PRIVILEGES ON *.* TO 'dms_user'@'%' IDENTIFIED BY 'dms_user';
+

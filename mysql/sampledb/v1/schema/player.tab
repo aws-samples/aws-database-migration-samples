@@ -1,0 +1,115 @@
+
+
+create table if not exists player
+(id    INT NOT NULL AUTO_INCREMENT,
+ sport_team_id MEDIUMINT NOT NULL,
+ last_name        VARCHAR(30),
+ first_name       varchar(30),
+ full_name        varchar(30),
+ constraint player_pk primary key(id),
+ constraint sport_team_fk foreign key(sport_team_id) references sport_team(id)
+);
+
+
+-- create procedure to load mlb Players
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS loadMLBPlayers $$
+
+CREATE PROCEDURE loadMLBPlayers()
+BEGIN
+  DECLARE v_sport_team_id INT;
+  DECLARE v_last_name VARCHAR(30);
+  DECLARE v_first_name VARCHAR(30);
+  DECLARE v_full_name VARCHAR(30);
+  DECLARE v_team_name VARCHAR(60);
+
+  DECLARE done INT DEFAULT FALSE;
+
+  declare mlb_players CURSOR FOR
+   SELECT distinct
+     CASE LTRIM(RTRIM(mlb_team_long))
+       WHEN 'Anaheim Angels' THEN 'Los Angeles Angels' 
+       ELSE LTRIM(RTRIM(mlb_team_long))
+     END as mlb_team_long
+    ,LTRIM(RTRIM(mlb_name)) as name
+    ,SUBSTRING(LTRIM(RTRIM(mlb_name)),1,INSTR(mlb_name,' '))   as t_name
+    ,SUBSTRING(LTRIM(RTRIM(mlb_name)),INSTR(mlb_name,' '),LENGTH(mlb_name)) f_name
+   from mlb_data;
+	
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN mlb_players;
+ 
+  read_loop: LOOP
+    FETCH NEXT FROM mlb_players INTO v_team_name, v_last_name, v_first_name, v_full_name;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+
+    SELECT id INTO v_sport_team_id FROM sport_team
+    WHERE sport_type_name = 'baseball'
+    AND sport_league_short_name = 'MLB'
+    AND name = v_team_name;
+
+    insert into player(sport_team_id, last_name, first_name, full_name)
+    values(v_sport_team_id, v_last_name, v_first_name, v_full_name);
+
+  END LOOP;
+
+  CLOSE mlb_players;
+END;
+$$
+
+DELIMITER ;
+
+---------------------------------------------
+-- create procedure to load NFL Players
+---------------------------------------------
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS loadNFLPlayers $$
+
+CREATE PROCEDURE loadNFLPlayers()
+BEGIN
+  DECLARE v_team VARCHAR(10);
+  DECLARE v_name VARCHAR(60);
+  DECLARE v_l_name VARCHAR(30);
+  DECLARE v_f_name VARCHAR(30);
+  DECLARE v_sport_team_id INT;
+
+  DECLARE done INT DEFAULT FALSE;
+
+  DECLARE nfl_players CURSOR FOR
+   SELECT team
+         ,name
+         ,SUBSTRING(RTRIM(LTRIM(name)),1,INSTR(name,',')-1) as l_name
+         ,RTRIM(LTRIM(SUBSTRING(RTRIM(LTRIM(name)),INSTR(name,',')+1,LENGTH(name)))) as f_name
+   FROM nfl_data;
+
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN nfl_players;
+
+  read_loop: LOOP
+    FETCH NEXT  FROM nfl_players INTO v_team, v_name, v_l_name, v_f_name;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+
+    SELECT id INTO  v_sport_team_id FROM sport_team
+    WHERE sport_type_name = 'football'
+    AND sport_league_short_name = 'NFL'
+    AND abbreviated_name = v_team;
+
+    insert into player(sport_team_id, last_name, first_name, full_name)
+    values(v_sport_team_id, v_l_name, v_f_name, v_name);
+
+  END LOOP;
+
+  CLOSE nfl_players;
+END;
+$$
+
+DELIMITER ;

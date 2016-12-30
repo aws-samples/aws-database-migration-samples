@@ -1,0 +1,23 @@
+
+
+select CONCAT(YEAR(CURDATE(),'MAR-31'));
+
+
+SELECT STR_TO_DATE('01,5,2013','%d,%m,%Y');
+
+select 6 - DAYOFWEEK(STR_TO_DATE(concat('31,3,',DATE_FORMAT(NOW(),'%Y')),'%d,%m,%Y'));
+
+select STR_TO_DATE(concat('31,3,',DATE_FORMAT(NOW(),'%Y')),'%d,%m,%Y') + 1 + 0;
+select DATE_ADD(STR_TO_DATE(concat('31,3,',DATE_FORMAT(NOW(),'%Y')),'%d,%m,%Y'), INTERVAL 1+0 DAY);
+select DAYNAME(DATE_ADD(STR_TO_DATE(concat('31,3,',DATE_FORMAT(NOW(),'%Y')),'%d,%m,%Y'), INTERVAL 1+0 DAY));
+
+
+select DATE_ADD(curdate(), INTERVAL FLOOR(rand()*(19 - 12 +1)) + 12 HOUR);
+ROUND((RAND() * (max-min))+min)
+
+
+select FLOOR(rand()*
+
+ROUND((RAND() * (max-min))+min)
+select ROUND((RAND() * (10-7))+7);
+SELECT MIN(id), MAX(id) from person;

@@ -1,0 +1,24 @@
+create table sporting_event_ticket
+( id BIGINT NOT NULL AUTO_INCREMENT,
+  sporting_event_id BIGINT NOT NULL,
+  sport_location_id SMALLINT NOT NULL,
+  seat_level INT NOT NULL,
+  seat_section VARCHAR(15) NOT NULL,
+  seat_row VARCHAR(10) NOT NULL,
+  seat     VARCHAR(10) NOT NULL,
+  ticketholder_id MEDIUMINT,
+  ticket_price DECIMAL(6,2) NOT NULL,
+  constraint sporting_event_ticket_pk primary key(id),
+  constraint set_sporting_event_fk foreign key(sporting_event_id) references sporting_event(id),
+  constraint set_person_id foreign key(ticketholder_id) references person(id),
+  constraint set_seat_fk foreign key(sport_location_id,seat_level,seat_section,seat_row, seat) references seat(sport_location_id,seat_level,seat_section,seat_row,seat)
+);
+
+
+create index set_sporting_event_idx on sporting_event_ticket(sporting_event_id);
+
+create index set_seat_idx on sporting_event_ticket(sport_location_id,seat_level,seat_section,seat_row,seat);
+
+create index set_ticketholder_idx on sporting_event_ticket(ticketholder_id);
+
+create index set_ev_id_tkholder_id_idx on sporting_event_ticket(sporting_event_id,ticketholder_id);

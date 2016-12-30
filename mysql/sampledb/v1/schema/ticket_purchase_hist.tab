@@ -1,0 +1,15 @@
+
+create table if not exists ticket_purchase_hist
+( sporting_event_ticket_id BIGINT NOT NUll
+ ,purchased_by_id MEDIUMINT NOT NULL
+ ,transaction_date_time DATETIME NOT NULL
+ ,transferred_from_id MEDIUMINT
+ ,purchase_price DECIMAL(6,2) NOT NULL
+ ,constraint ticket_purchase_hist_pk primary key(sporting_event_ticket_id, purchased_by_id, transaction_date_time)
+ ,constraint tph_sport_event_tik_id foreign key(sporting_event_ticket_id) references sporting_event_ticket(id)
+ ,constraint tph_ticketholder_id foreign key(purchased_by_id) references person(id)
+ ,constraint tph_transfer_from_id foreign key(transferred_from_id) references person(id)
+);
+
+create index tph_purch_by_id on ticket_purchase_hist(purchased_by_id);
+create index tph_trans_from_id on ticket_purchase_hist(transferred_from_id);
