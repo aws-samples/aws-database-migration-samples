@@ -39,4 +39,7 @@ exec rdsadmin.rdsadmin_util.grant_sys_object('V_$LOGMNR_LOGS','DMS_USER');
 exec rdsadmin.rdsadmin_util.grant_sys_object('V_$LOGMNR_CONTENTS','DMS_USER');
 grant logmining to dms_user;
 
+-- for use with SCT
+grant SELECT ANY DICTIONARY to dms_user
+
 

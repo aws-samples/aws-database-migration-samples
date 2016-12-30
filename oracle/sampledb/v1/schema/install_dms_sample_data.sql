@@ -133,6 +133,34 @@ exec dbms_stats.gather_schema_stats('DMS_SAMPLE');
 @schema/sporting_event_info.vw
 @schema/ticket_info.vw
 
+
+---------------------------------------------------
+-- grant privileges on tables to dms_user
+--------------------------------------------------
+DECLARE
+  CURSOR tabcur IS
+  SELECT table_name
+  FROM   dba_tables
+  WHERE  owner = 'DMS_SAMPLE';
+
+  stmt VARCHAR2(200);
+BEGIN
+  FOR trec IN tabcur LOOP
+    stmt := 'grant select, insert, update, delete, alter on dms_sample.' || trec.table_name || ' to dms_user';
+    dbms_output.put_line('Granting privileges to dms_user on: ' || trec.table_name );
+    EXECUTE IMMEDIATE stmt;
+  END LOOP;
+END;
+/
+
+---------------------------------------------------
+-- grant privileges on package to dms_user
+--------------------------------------------------
+create public synonym ticket_management for dms_sample.ticket_management;
+grant execute on ticketManagement.generateTicketActivity to dms_user;
+grant execute on ticketManagement.generateTransferActivity to dms_user;
+
+
 ---------------------------------------------------
 -- add table level supplemental logging
 --------------------------------------------------
@@ -152,3 +180,4 @@ BEGIN
   END LOOP;
 END;
 /
+

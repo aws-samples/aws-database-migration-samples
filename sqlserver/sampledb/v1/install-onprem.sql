@@ -1,3 +1,7 @@
+PRINT('Installing AWS sampledb in database dms_sample...')
+PRINT(CONCAT('Starting: ',CURRENT_TIMESTAMP));
+GO
+
 :setvar BACKUPDIR aws_sampledb_backups
 
 :r .\schema\create_dms_sample.sql
@@ -70,7 +74,7 @@ go
 :r .\schema\set_nfl_team_home_field.sql
 print('Creating stadium seats...')
 go
---exec generateSeats
+exec generateSeats
 go
 print('Loading baseball players...')
 go
@@ -123,10 +127,10 @@ go
 :r .\schema\generate_tickets.sql
 print('Loading mlb tickets...')
 go
--- :r .\schema\load_mlb_tickets.sql
+:r .\schema\load_mlb_tickets.sql
 print('Loading nfl tickets...')
 go
--- :r .\schema\load_nfl_tickets.sql
+:r .\schema\load_nfl_tickets.sql
 
 print('Creating views...')
 print('creating view sporting_event_info...')
@@ -154,7 +158,10 @@ print('Setting up replication...')
 go
 :r .\system\enable_replication.sql
 
-
+PRINT(CONCAT('Complete: ',CURRENT_TIMESTAMP));
+GO
+Print('.....   Done   .....')
+GO
 
 
 
