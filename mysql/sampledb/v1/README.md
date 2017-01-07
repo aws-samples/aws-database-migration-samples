@@ -72,7 +72,7 @@ This will generate 100 "transfer" transactions each delayed by 0.1 seconds. Tick
 ##Entity Relationship Diagram of the System
 ![alt tag](/images/sampledb.jpg)
 
-##Object descriptions
+##Object Descriptions
 ### PROCEDURES
 * **generateTicketActivity(p_max_transactions,p_delay_in_seconds):** Calls the procedure "sellTickets" <p_max_transactions> times with a delay of <p_delay_in_seconds> seconds, (fractions of seconds are allowed). The default is to generate 1000 transactions with a delay of 0.25 seconds. To execute the procedure using the defaults use: call generateTicketActivity(NULL,NULL);
 * **generateTransferActivity(p_max_transactions,p_delay_in_seconds):** Calls the procedure "transferTicket" <p_max_transactions> times with a delay of <p_delay_in_seconds> seconds, (fractions of seconds are allowed). The default is to generate 10 transfers with a delay of 0.25 seconds. To execute the procedure using the defaults use: call generateTransferActivity(NULL,NULL);
