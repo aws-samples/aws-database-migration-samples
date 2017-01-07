@@ -2,7 +2,7 @@ create table sporting_event_ticket
 ( id BIGINT NOT NULL AUTO_INCREMENT,
   sporting_event_id BIGINT NOT NULL,
   sport_location_id SMALLINT NOT NULL,
-  seat_level INT NOT NULL,
+  seat_level SMALLINT NOT NULL,
   seat_section VARCHAR(15) NOT NULL,
   seat_row VARCHAR(10) NOT NULL,
   seat     VARCHAR(10) NOT NULL,

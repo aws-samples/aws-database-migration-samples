@@ -83,7 +83,7 @@ call loadMLBPlayers;
 select 'Loading NFL players...';
 call loadNFLPlayers;
 
-select 'Loading sporting events...';
+select 'Loading sporting events...'
 union
 select 'Generating baseball season...';
 delete from sporting_event where sport_type_name = 'baseball';
@@ -94,7 +94,6 @@ select 'Generating NFL season...';
 delete from sporting_event where sport_type_name = 'football';
 source ./schema/generate_nfl_season.sql;
 call generateNFLSeason;
-select distinct start_date from sporting_event order by start_date;
 
 select 'Creating ticket table...';
 source ./schema/sporting_event_ticket.tab

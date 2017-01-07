@@ -36,5 +36,5 @@ call mysql.rds_set_configuration('binlog retention hours',8);
 ---------------------------------------------------------
 use dms_sample;
 source ./schema/load_base_data.sql
-source ./schema//install_dms_sample_data.sql
+source ./schema/install_dms_sample_data.sql
 

@@ -5,7 +5,7 @@ DELIMITER $$
 
 DROP PROCEDURE IF EXISTS generateTransferActivity $$
 
-CREATE PROCEDURE generateTransferActivity(p_max_transactions INT, p_dalay_in_seconds DECIMAL(5,2)) 
+CREATE PROCEDURE generateTransferActivity(p_max_transactions INT, p_delay_in_seconds DECIMAL(5,2)) 
 BEGIN
   DECLARE v_txn_count INT DEFAULT 0;
   DECLARE v_min_tik_id BIGINT;
@@ -19,6 +19,11 @@ BEGIN
   DECLARE v_xfer_all TINYINT DEFAULT 1;
   DECLARE v_price DECIMAL(6,2);
   DECLARE v_price_multiplier DECIMAL(4,2) DEFAULT 1.0;
+  DECLARE v_max_transactions INT;
+  DECLARE v_delay_message VARCHAR(100);
+  DECLARE v_delay REAL(5,2);
+
+  SET v_delay = COALESCE(p_delay_in_seconds,0.25);
 
   /* get max and min ticket ids  */
   SELECT min(sporting_event_ticket_id), max(sporting_event_ticket_id) INTO v_min_tik_id, v_max_tik_id FROM ticket_purchase_hist;
@@ -28,7 +33,9 @@ BEGIN
 
   select concat('max t: ',v_max_tik_id,' min t: ', v_min_tik_id, 'max p: ',v_max_p_id,' min p: ', v_min_p_id);
 
-  WHILE v_txn_count < p_max_transactions DO
+  SET v_max_transactions = COALESCE(p_max_transactions,10);
+
+  WHILE v_txn_count < v_max_transactions DO
     /* find a random upper bound for ticket and person ids */
     SET v_rand_max = ROUND((RAND() * (v_max_tik_id - v_min_tik_id)) + v_min_tik_id);
     SET v_rand_p_max = ROUND((RAND() * (v_max_p_id - v_min_p_id)) + v_min_p_id);
@@ -62,6 +69,8 @@ BEGIN
     SET v_txn_count = v_txn_count + 1;
     SET v_xfer_all = 1;
     SET v_price_multiplier = 1;
+    SET v_delay_message = (SELECT sleep(v_delay) );
+
   END WHILE;
 END;
 $$
