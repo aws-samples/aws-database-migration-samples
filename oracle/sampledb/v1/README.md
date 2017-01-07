@@ -37,13 +37,13 @@ IF you are installing the sampledb into a NON RDS database run the following scr
  * instructions on how to generate transactions for the sampledb
  * description of most of the objects included in the sampledb
 
-## repo structure
+## Repo Structure
 There are three directories below this main directory. they are:
 * data: files containing base data used by the system. These are here for reference only.
 * user: files for creating and adding privileges to the dms_sample and dms_user user accounts
 * schema: files used for creating schema objects (including procedures and functions etc.) also included are some scripts used in generating data
 
-## future versions
+## Future Versions
 Future versions of the sampledb will include objects usefull for demonstrating or practicing tricky, complicated or advanced migration/conversion techniques. Examples may include:
 * working with large objects (BLOBS, CLOBS, etc.)
 * working with filtering
@@ -52,12 +52,12 @@ Future versions of the sampledb will include objects usefull for demonstrating o
 * more sports/more data (currently only football and baseball are represented.)
 * etc.
 
-## using the sampledb with DMS or SCT
+## Using the sampledb With DMS or SCT
 Two users are created with the sampledb: dms_sample and dms_user. Dms_sample is the owner of the objects. Dms_user is a user with more limited privileges - only those privileges necessary to use DMS or SCT. This is intended to mimick a real-life situation and the best practice of least privilege: The accounts used to connect to your databases from DMS or SCT should have the minimal privileges required to do their job. 
 
 Therefore, when you connect to the sampldb from DMS or SCT, you should connect as the user *DMS_USER* (not DMS_SAMPLE.)
 
-## generating transactions 
+## Generating Transactions 
 Most people who use DMS will want to exercise change capture and apply (CDC.) The sampledb includes some packaged designed to generate transactions on your source system. The package is called - dms_sample.ticketManagement. To generate transactions you can log into the database as dms_sample (using SQL Plus or SQL Developer) and do the following:
 
 ```
@@ -74,7 +74,10 @@ SQL> exec ticketManagement.generateTransferActivity(0.1,1000);
 
 This will generate 1000 "transfer" transactions each delayed by 0.1 seconds. Tickets are transfered as a group 80% of the time 20% of the time singlets are transfered. A record of each transaction is recorded in ticket_purchase_hist.
 
-##Object descriptions
+##Entity Relationsip Diagram of the System
+![alt tag](/images/sampledb.jpg)
+
+##Object Descriptions
 ###PACKAGES           
 * **TICKETMANAGEMENT:** Details above under "generating transactions"
 
