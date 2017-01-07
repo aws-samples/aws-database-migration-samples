@@ -34,13 +34,13 @@ IF you are installing the sampledb into an RDS database run the following script
  * instructions on how to generate transactions for the sampledb
  * description of most of the objects included in the sampledb
 
-## repo structure
+## Repo Structure
 There are three directories below this main directory. they are:
 * data: files containing base data used by the system. These are here for reference only.
 * user: files for creating and adding privileges to the dms_sample and dms_user user accounts
 * schema: files used for creating schema objects (including procedures and functions etc.) also included are some scripts used in generating data
 
-## future versions
+## Future Versions
 Future versions of the sampledb will include objects usefull for demonstrating or practicing tricky, complicated or advanced migration/conversion techniques. Examples may include:
 * working with large objects (BLOBS, CLOBS, etc.)
 * working with filtering
@@ -49,10 +49,10 @@ Future versions of the sampledb will include objects usefull for demonstrating o
 * more sports/more data (currently only football and baseball are represented.)
 * etc.
 
-## using the sampledb with DMS or SCT
+## Using the sampledb With DMS or SCT
 The user dms_user is created as part of the installation of the sampledb. When you connect to the database using DMS or the SCT you should connect using this accont. The password for dms_user is set to dms_user by default, it is recommended you change this.
 
-## generating transactions 
+## Generating Transactions 
 Most people who use DMS will want to exercise change capture and apply (CDC.) The sampledb includes some procedures designed to generate transactions on your source system. The procedures are called - generatTicketActivity and generateTransferActivity. To generate transactions you can log into the database using a mysql client or MySQL Workbench and do the following:
 
 ```
@@ -68,6 +68,9 @@ MySQL> call generateTransferActivity(100,0.1);
 ````
 
 This will generate 100 "transfer" transactions each delayed by 0.1 seconds. Tickets are transfered as a group 80% of the time 20% of the time singlets are transfered. A record of each transaction is recorded in ticket_purchase_hist.
+
+##Entity Relationship Diagram of the System
+![alt tag](/images/sampledb.jpg)
 
 ##Object descriptions
 ### PROCEDURES
