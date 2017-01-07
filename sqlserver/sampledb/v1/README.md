@@ -75,8 +75,10 @@ Once you've sold some tickets you can run the generateTransferActivity procedure
 use dms_sample
 exec generateTransferActivity 100
 ````
+##Entity Relationship Diagram of the System
+![alt tag](/images/sampledb.jpg)
 
-##Object descriptions
+##Object Descriptions
 ### PROCEDURES
 * **generateSeats:** Randomly generates seats for each stadium in a "realistic" fashion
 * **generate_tickets:** Generates a ticket for each seat for each event.
