@@ -1,0 +1,6 @@
+
+LOAD DATA INFILE '/tmp/person.csv' INTO TABLE person
+  FIELDS TERMINATED BY ',' 
+  OPTIONALLY ENCLOSED BY '"' 
+  ESCAPED BY '\\\\' 
+  LINES TERMINATED BY '\\n' ;
