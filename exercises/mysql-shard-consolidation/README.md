@@ -12,11 +12,13 @@ You can find RDS snapshots here (To find them in the RDS console go to RDS -> sn
 * <b>Master:</b> arn:aws:rds:us-west-2:900514285683:snapshot:mysql-sampledb-master-shard
 * <b>Shard1:</b> arn:aws:rds:us-west-2:900514285683:snapshot:mysql-sampledb-shard1
 * <b>Shard2:</b> arn:aws:rds:us-west-2:900514285683:snapshot:mysql-sampledb-shard2
+
 We mentioned earlier there were several ways for migrating a MySQL instance into Aurora. One such way is to use snapshot conversion. We’re going to use this option to convert our master node. Note: this method does require an outage long enough to create and convert the snapshot. Many applications can afford such an outage, if yours can’t, one of the other methods mentioned can probably work for you. For our example, we’ll use snapshot conversion for illustrative purposes.
 Locate the snapshot mysql-sampledb-master-shard in the RDS console and click the “migrate snapshot” button at the top of the page.  You’ll want to choose the following:
 * <b>Instance Class:</b> the smallest you can get - db.t2.medium
 * <b>VPC:</b> Just keep in mind you’ll want to put everything in the same VPC
 * <b>Everything Else:</b> the default values should be fine
+
 While we’re waiting for the snapshot to migrate, let’s create our shards from the snapshots. Locate the shard1 and shard2 snapshots and for each click the “restore snapshot” button at the top of the page. Choose the following:
 * <b>Instance Class:</b> db.t2.small (or micro if you like.)
 * <b>Multi-AZ:</b> NO
@@ -24,18 +26,21 @@ While we’re waiting for the snapshot to migrate, let’s create our shards fro
 * <b>Publicly Accessible:</b> Yes
 * <b>VPC:</b> Just keep in mind you’ll want to put everything in the same VPC
 * <b>Everything Else:</b> The default values should be fine
+
 We’ll be using the Database Migration Service (DMS) to migrate our shards to Aurora. We’ll also be configuring our DMS tasks to use Change Data Capture (CDC) during the migration. To allow this, we’ll need to configure our shards appropriately. For this, we’ll need to create a parameter group. To do so log into the RDS console, click Parameter Groups (on the left), select “create parameter group”.  Select the mysql parameter family that corresponds to the version of mysql your shards are running on (in my case it mysql5.6).  Give your parameter group a name, something like: MYSQL-DMS-CDC, add a description and click “create.” Now, select the parameter group you just created and click “Edit Parameters.” Change the following parameters and save your changes:
 * <b>Binlog_checksum:</b> NONE 
 * <b>Binlog_format:</b> ROW
+
 Once the creation of your shards is complete you will need to modify them to: add your newly created parameter group and, change the master password. For each shard, from the RDS console click “Instance Actions” -> “Modify”.  Change the master password, and under “DB Parameter Group” select the parameter group you just created, make sure your instances are being backed up and have the changes applied immediately. Once you’ve added the parameter group to your instance you’ll need to reboot it so it picks up the change. Got to the AWS RDS console, locate your instance, select “reboot” from the Instance Actions menu.
 Okay – there’s one more thing we need to do to prepare our shards for DMS change capture and apply. It turns out RDS is super efficient when it comes to binlog management. This is great! Except for the fact that we need the binlogs to remain on the host long enough for DMS to mine transactions. To tell RDS to keep those binlogs around we can call a procedure. So… log into each instance using your favorite MySQL client (I prefer the basic client but Workbench works just as well).  Once logged in issue the following procedure call to direct RDS to retain binlogs for 24 hours:
 
-'''
+```
 MySQL> call mysql.rds_set_configuration('binlog retention hours', 24);
 Query OK, 0 rows affected (0.00 sec)
-'''
+```
 
 Excellent! The two shards should be ready to roll!
+
 By now the migration of your master snapshot should be close to completion. When it is complete, restore the snapshot. Select a small instance (t2.medium is fine), and make sure you put it in the correct VPC. Once the instance has been created, modify it and change the master password.
 Excellent! You should now have a system that looks something like this:
 
@@ -45,6 +50,7 @@ We’ve used the snapshot migration process to copy our master shard into Aurora
 * Launch a replication instance in our VPC
 * Create endpoints to both our source and target databases ( shard 1 and the master shard respectively)
 * Create a task to migrate the data from shard1 into our Aurora instance
+
 To launch a replication instance go the AWS console and select DMS. located under “Migration”, (make sure you’re in the correct region: us-west-2.) On the left hand side select Replication instances and click the “Create replication instance” located in the upper left. Supply a name (auroraMigration), description, choose an instance class (t2.small or medium is fine), and make sure you select the same VPC that contains your database instances. While the instance is being created go to the RDS console and make not of the endpoints for your Aurora instance and your shard1 instance, you’ll need them to create endpoints.
 To create your source endpoint, go to the AWS DMS console, select endpoints, then click “Create endpoint.”  Choose the following inputs:
 * <b>Endpoint type:</b> source
@@ -56,7 +62,8 @@ To create your source endpoint, go to the AWS DMS console, select endpoints, the
 * <b>Password:</b> <the password>  (this will be the new password you supplied when modifying the instance)
 * <b>VPC:</b> select the appropriate vpc
 * <b>Replication instance:</b> select the replication instance you just created
-  Now click “run test” and save the endpoint.
+**Now click “run test” and save the endpoint.
+
 Creating the target endpoint is similar to creating the source, follow the same process with slightly different inputs:
 * <b>Endpoint   type:</b> target
 * <b>Identifier:</b> aurora-instance
@@ -67,7 +74,9 @@ Creating the target endpoint is similar to creating the source, follow the same 
 * <b>Password:</b> <whatever it was changed to>
 * <b>VPC:</b> select the appropriate vpc
 * <b>Replication instance:</b> select the replication instance you just created
- Now click “run test” and save the endpoint.
+
+** Now click “run test” and save the endpoint.
+
 Excellent! We’re set! Now all that’s left is to create a task to migrate the data from shard1 into our Aurora database!
 By now you know the drill: Head over to the AWS DMS console, select Tasks and click “Create task.” Choose the following inputs:
 * <b>Task name:</b> shard1-migration
@@ -80,6 +89,7 @@ By now you know the drill: Head over to the AWS DMS console, select Tasks and cl
 * <b>Table Mappings:</b>
 * <b>Schema name is:</b> dms_sample
 * <b>Action:</b> include
+
 **Now click the add selection rule
 Now I have a confession to make…  we wanted to give you the ability to generate transactions against the shards. To do this we installed a couple of procedures in the shards and for this, we needed the data in the person table. So… we included it on both shard. Yeah, we know, normally this information would come from the application but hey, we’re improvising here! Bottom line – we need to exclude it from the table being migrated to our Aurora source.  To do so… under “Selection rules” click “add a selection rule.” 
 * <b>Schema name is:</b> dms_sample
