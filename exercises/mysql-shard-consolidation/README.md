@@ -1,4 +1,6 @@
-Our sample database is based on a mock sports ticketing system. The gist of the system is to sell tickets to sporting events. An entity relationship of the system looks as follows:
+#MySQL Shard Consolidation Exercise
+
+Following is an exercise in using the Database Migration Service, (DMS) to consolidate a sharded MySQL system into Amazon Aurora using the DMS sample database. Our sample database is based on a mock sports ticketing system. The gist of the system is to sell tickets to sporting events. An entity relationship of the system looks as follows:
 
 ![alt tag](/images/sampledb.jpg)
 
