@@ -62,7 +62,7 @@ To create your source endpoint, go to the AWS DMS console, select endpoints, the
 * <b>Password:</b> <the password>  (this will be the new password you supplied when modifying the instance)
 * <b>VPC:</b> select the appropriate vpc
 * <b>Replication instance:</b> select the replication instance you just created
-* <b>...--></b> Now click “run test” and save the endpoint.
+* <b>--></b> Now click “run test” and save the endpoint.
 
 Creating the target endpoint is similar to creating the source, follow the same process with slightly different inputs:
 * <b>Endpoint   type:</b> target
@@ -74,7 +74,7 @@ Creating the target endpoint is similar to creating the source, follow the same 
 * <b>Password:</b> <whatever it was changed to>
 * <b>VPC:</b> select the appropriate vpc
 * <b>Replication instance:</b> select the replication instance you just created
-* <b>...--></b>  Now click “run test” and save the endpoint.
+* <b>--></b>  Now click “run test” and save the endpoint.
 
 Excellent! We’re set! Now all that’s left is to create a task to migrate the data from shard1 into our Aurora database!
 By now you know the drill: Head over to the AWS DMS console, select Tasks and click “Create task.” Choose the following inputs:
@@ -88,24 +88,37 @@ By now you know the drill: Head over to the AWS DMS console, select Tasks and cl
 * <b>Table Mappings:</b>
 * <b>Schema name is:</b> dms_sample
 * <b>Action:</b> include
+* <b>--></b> Now click the add selection rule
 
-**Now click the add selection rule
-Now I have a confession to make…  we wanted to give you the ability to generate transactions against the shards. To do this we installed a couple of procedures in the shards and for this, we needed the data in the person table. So… we included it on both shard. Yeah, we know, normally this information would come from the application but hey, we’re improvising here! Bottom line – we need to exclude it from the table being migrated to our Aurora source.  To do so… under “Selection rules” click “add a selection rule.” 
+Now we have a confession to make…  we wanted to give you the ability to generate transactions against the shards. To do this we installed a couple of procedures in the shards and for this, we needed the data in the person table. So… we included it on both shard. Yeah, we know, normally this information would come from the application but hey, we’re improvising here! Bottom line – we need to exclude it from the table being migrated to our Aurora source.  To do so… under “Selection rules” click “add a selection rule.” 
 * <b>Schema name is:</b> dms_sample
 * <b>Table name is like:</b> person
 * <b>Action:</b> exclude
-**Now click the add selection rule
+* <b>--></b> Now click the add selection rule
+
 Okay – just accept the defaults for all other options and hit the “Create task” button!
 Awesome! Your task should be off and running! You can monitor it in the console. Meanwhile, while it’s running, let’s generate a few transactions. Log into your MySQL instance again and issue the following commands:
+
+```
 MySQL> use dms_sample
 Database changed
+
 MySQL >call generateTicketActivity(100,0.01);
+```
+
 This will execute “ticket purchasing” transactions against your mysql shard!
+
 At this point, we’ve successfully migrated shard1 into our Aurora database! Well… almost. We now need to stop taking transactions in shard1, let the final transactions flow through to the Aurora database and direct traffic that was once destined for shard1 to the Aurora database, and stop the task. Boom! One shard down!
 Our system now looks as follows:
 
 ![alt tag](/images/shardConsolidationStageOne.png)
 
+To migrate shard2 follow the same process we used for shard1. Once complete you’ll have successfully consolidated three MySQL systems into a single Aurora instance!
+
 ![alt tag](/images/shardConsolidationFinal.png)
 
+Pretty cool stuff! However, our sharded sampledb was clean, what if our shards are dirty? As discussed earlier, if your shards are dirty you can consolidate them into different databases within the Aurora instance. To do this, you can use the transformation functionality of DMS. In our example, you would create two additional databases in your Aurora instance say: dms_sample_shard1 and dms_sample_shard2. You’d then create transformations to map the dms_sample database (schema) of shard1 into dms_sample_shard1 and the dms_sample schema of shard2 into dms_sample_shard1. Viola! Your resultant Aurora system will look like this: 
+
 ![alt tag](/images/shardConsolidationAlternative.png)
+
+We hope you’ve enjoyed the post and working through the exercise. More importantly, we hope you can see how these tools can be leveraged to consolidate your sharded systems into Aurora, and save some money doing so.
