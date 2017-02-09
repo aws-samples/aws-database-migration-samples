@@ -62,6 +62,7 @@ To create your source endpoint, go to the AWS DMS console, select endpoints, the
 * <b>Password:</b> <the password>  (this will be the new password you supplied when modifying the instance)
 * <b>VPC:</b> select the appropriate vpc
 * <b>Replication instance:</b> select the replication instance you just created
+
  * Now click “run test” and save the endpoint.
 
 Creating the target endpoint is similar to creating the source, follow the same process with slightly different inputs:
