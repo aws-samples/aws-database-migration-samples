@@ -62,7 +62,7 @@ To create your source endpoint, go to the AWS DMS console, select endpoints, the
 * <b>Password:</b> <the password>  (this will be the new password you supplied when modifying the instance)
 * <b>VPC:</b> select the appropriate vpc
 * <b>Replication instance:</b> select the replication instance you just created
-*<b>...--></b> Now click “run test” and save the endpoint.
+* <b>...--></b> Now click “run test” and save the endpoint.
 
 Creating the target endpoint is similar to creating the source, follow the same process with slightly different inputs:
 * <b>Endpoint   type:</b> target
@@ -74,7 +74,7 @@ Creating the target endpoint is similar to creating the source, follow the same 
 * <b>Password:</b> <whatever it was changed to>
 * <b>VPC:</b> select the appropriate vpc
 * <b>Replication instance:</b> select the replication instance you just created
-*<b>...--></b>  Now click “run test” and save the endpoint.
+* <b>...--></b>  Now click “run test” and save the endpoint.
 
 Excellent! We’re set! Now all that’s left is to create a task to migrate the data from shard1 into our Aurora database!
 By now you know the drill: Head over to the AWS DMS console, select Tasks and click “Create task.” Choose the following inputs:
