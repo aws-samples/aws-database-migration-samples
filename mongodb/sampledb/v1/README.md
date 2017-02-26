@@ -3,17 +3,23 @@
 **Installation**
 * launch and log in to an ec2 instance running amazon linux
 * Update your system
+
    `sudo yum update`
-* Install git
+
+**Install git
+
    `sudo yum install -y git`
 
-download the code from repository (awslabs/aws-database-migration-samples) to the linux machine
-  git clone https://github.com/awslabs/aws-database-migration-samples.git
-Install mongodb community edition
+* download the code from repository (awslabs/aws-database-migration-samples) to the linux machine
+
+  `git clone https://github.com/awslabs/aws-database-migration-samples.git`
+
+**Install mongodb community edition
   https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/
-cd ~/aws-database-migration-samples/mongodb/sampledb/v1
+
+`cd ~/aws-database-migration-samples/mongodb/sampledb/v1
 sudo cp ./config/mongodb-org-3.4.repo /etc/yum.repos.d/mongodb-org-3.4.repo
-sudo yum install -y mongodb-org
+sudo yum install -y mongodb-org`
 
 start mongodb
   sudo service mongod start
