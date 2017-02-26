@@ -30,7 +30,9 @@ sudo yum install -y mongodb-org
 ```
 
 **start mongodb
-`sudo service mongod start`
+```
+sudo service mongod start
+```
 
 **Configure mongodb to start on reboot
 ```
