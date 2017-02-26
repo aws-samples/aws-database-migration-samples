@@ -18,7 +18,9 @@
   https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/
 
 `cd ~/aws-database-migration-samples/mongodb/sampledb/v1
+
 sudo cp ./config/mongodb-org-3.4.repo /etc/yum.repos.d/mongodb-org-3.4.repo
+
 sudo yum install -y mongodb-org`
 
 start mongodb
