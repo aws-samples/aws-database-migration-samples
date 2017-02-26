@@ -1,8 +1,12 @@
-launch and log in to an ec2 instance running amazon linux
-Update your system
-   sudo yum update
-Install git
-   sudo yum install -y git
+#Amazon DMS Sample Database for MongoDB: version 1.0
+
+**Installation**
+* launch and log in to an ec2 instance running amazon linux
+* Update your system
+   `sudo yum update`
+* Install git
+   `sudo yum install -y git`
+
 download the code from repository (awslabs/aws-database-migration-samples) to the linux machine
   git clone https://github.com/awslabs/aws-database-migration-samples.git
 Install mongodb community edition
