@@ -20,7 +20,6 @@ git clone https://github.com/awslabs/aws-database-migration-samples.git
 ```
 
 **Install mongodb community edition:**
-
   https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/
 
 ```
@@ -52,6 +51,7 @@ sudo gem install bson_ext
 
 **Install sample db:**
 ```
+mkdir ./log
 ./schema/load_mlb_data.rb
 ./schema/load_nfl_data.rb
 ./schema/load_name_data.rb
