@@ -69,7 +69,7 @@ nfl_data.find.each do |player|
     sport_loc = db[:sport_location]
     home_field = sport_loc.find({ :id => stadium[:sport_location_id]}).first
 
-    nfl_team[hkey] = {:sport_oid => sport[:_od], :sport => 'football', :name => team_hash[hkey][0], :short_name => player[:team], 
+    nfl_team[hkey] = {:sport_oid => sport[:_id], :sport => 'football', :name => team_hash[hkey][0], :short_name => player[:team], 
                       :division => team_hash[hkey][1], :home_field => home_field[:name], :home_field_id => home_field[:_id], 
                       :players => [] } 
   end

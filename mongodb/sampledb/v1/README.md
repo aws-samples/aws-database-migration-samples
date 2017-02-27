@@ -64,3 +64,8 @@ sudo gem install bson_ext
 ./schema/load_person.rb
 ```
 
+##Entity Relationship Style Diagram of the System
+![alt tag](/images/mongo_sampledb.png)
+
+*Some Words
+![alt tag](/images/mongo_sampledb_doc.png)
