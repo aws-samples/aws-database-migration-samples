@@ -8,18 +8,18 @@
 sudo yum update
 ```
 
-**Install git
+**Install git**
 
 ```
 sudo yum install -y git
 ```
 
-**download the code from repository (awslabs/aws-database-migration-samples) to the linux machine
+**download the code from repository (awslabs/aws-database-migration-samples) to the linux machine**
 ```
 git clone https://github.com/awslabs/aws-database-migration-samples.git
 ```
 
-**Install mongodb community edition:
+**Install mongodb community edition:**
 
   https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/
 
@@ -29,17 +29,17 @@ sudo cp ./config/mongodb-org-3.4.repo /etc/yum.repos.d/mongodb-org-3.4.repo
 sudo yum install -y mongodb-org
 ```
 
-**start mongodb
+**start mongodb**
 ```
 sudo service mongod start
 ```
 
-**Configure mongodb to start on reboot
+**Configure mongodb to start on reboot**
 ```
 sudo chkconfig mongod on
 ```
 
-**Install the ruby driver for mongo and the bson extension
+**Install the ruby driver for mongo and the bson extension**
 ```
 sudo yum update ruby
 sudo yum install -y gcc
@@ -50,7 +50,7 @@ sudo gem install mongo
 sudo gem install bson_ext
 ```
 
-**Install sample db:
+**Install sample db:**
 ```
 ./schema/load_mlb_data.rb
 ./schema/load_nfl_data.rb
@@ -67,5 +67,18 @@ sudo gem install bson_ext
 ##Entity Relationship Style Diagram of the System
 ![alt tag](/images/mongo_sampledb.png)
 
-*Some Words
+*Some Words**
+
 ![alt tag](/images/mongo_sampledb_doc.png)
+
+
+##Collections
+**sport**
+```json
+{
+    "name": "football",
+    "description": "description of football",
+    "league": "NFL",
+    "league_name": "National Football League"
+}
+```
