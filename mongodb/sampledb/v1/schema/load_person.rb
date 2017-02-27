@@ -5,6 +5,8 @@ require 'mongo'
 
 # Connect to db. Located here to make it easy to change port etc...
 db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => 'dms_sample')
+Mongo::Logger.logger       = ::Logger.new('./log/load_person.log')
+Mongo::Logger.logger.level = ::Logger::INFO
 
 person = db[:person]
 person.drop()
