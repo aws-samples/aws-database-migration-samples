@@ -3,8 +3,10 @@
 require 'rubygems'  # not necessary for Ruby 1.9
 require 'mongo'
 
+port = ARGV.first || '27017'
+
 # Connect to db. Located here to make it easy to change port etc...
-db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => 'dms_sample')
+db = Mongo::Client.new([ '127.0.0.1:' + port ], :database => 'dms_sample')
 Mongo::Logger.logger       = ::Logger.new('./log/load_person.log')
 Mongo::Logger.logger.level = ::Logger::INFO
 
