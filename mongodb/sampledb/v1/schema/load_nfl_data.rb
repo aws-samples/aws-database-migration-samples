@@ -11,7 +11,7 @@ Mongo::Logger.logger       = ::Logger.new('./log/load_nfl_data.log')
 Mongo::Logger.logger.level = ::Logger::INFO
 
 # Load data from the file
-# fname = ARGV.first || './data/nfl_data.sql'
+fname = ARGV.first || './data/nfl_data.sql'
 
 puts "loading NFL data from: " + fname
 

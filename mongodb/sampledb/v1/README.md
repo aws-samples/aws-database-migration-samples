@@ -40,28 +40,12 @@ sudo chkconfig mongod on
 
 **Install the ruby driver for mongo and the bson extension**
 ```
-sudo yum update ruby
-sudo yum install -y gcc
-sudo yum install -y rubygems
-sudo yum install -y ruby-devel
-sudo gem update --system
-sudo gem install mongo
-sudo gem install bson_ext
+./install_ruby.sh
 ```
 
 **Install sample db:**
 ```
-mkdir ./log
-./schema/load_mlb_data.rb
-./schema/load_nfl_data.rb
-./schema/load_name_data.rb
-./schema/load_nfl_stadium_data.rb
-./schema/load_sport.rb
-./schema/load_sport_location.rb
-./schema/load_sports_teams.rb
-./schema/generate_sporting_events.rb
-./schema/generate_tickets.rb
-./schema/load_person.rb
+./install_sampledb.sh
 ```
 
 **create the dms user **
