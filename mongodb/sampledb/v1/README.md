@@ -64,10 +64,27 @@ mkdir ./log
 ./schema/load_person.rb
 ```
 
+**create the dms user **
+mongo < ./user/create_dms_user.js
+
+**Set up mongo for remote access**
+# network interfaces
+net:
+  port: 27017
+#  bindIp: 127.0.0.1  <- comment out this line
+
+security:
+  authorization: 'enabled'
+
+sudo service mongod restart
+
+** set up replication set **
+mongod --port 27017 --dbpath /var/lib/mongo --replSet rs0
+
+
 ##Entity Relationship Style Diagram of the System
 ![alt tag](/images/mongo_sampledb.png)
 
-*Some Words**
 
 ![alt tag](/images/mongo_sampledb_doc.png)
 
