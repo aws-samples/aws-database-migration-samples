@@ -49,21 +49,28 @@ sudo chkconfig mongod on
 ```
 
 **create the dms user **
+```
 mongo < ./user/create_dms_user.js
+```
 
 **Set up mongo for remote access**
+
+edit the /etc/mongod.conf file so it looks like:
+```
 # network interfaces
 net:
   port: 27017
 #  bindIp: 127.0.0.1  <- comment out this line
 
+
 security:
   authorization: 'enabled'
+```
 
+**restart mongodb ***
+```
 sudo service mongod restart
-
-** set up replication set **
-mongod --port 27017 --dbpath /var/lib/mongo --replSet rs0
+```
 
 
 ##Entity Relationship Style Diagram of the System
