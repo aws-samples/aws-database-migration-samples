@@ -1,6 +1,18 @@
---------------------------------------------------------
---  File created - Monday-August-29-2016   
---------------------------------------------------------
+#
+#  Copyright 2017 Amazon.com
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
 Insert into nfl_stadium_data (stadium,seating_capacity,location,surface,roof,team,opened,sport_location_id) values ('Los Angeles Memorial Coliseum',93607,'Los Angeles, California','Natural grass','Open','Los Angeles Rams','1923',32);
 Insert into nfl_stadium_data (stadium,seating_capacity,location,surface,roof,team,opened,sport_location_id) values ('MetLife Stadium',82500,'East Rutherford, New Jersey','UBU Speed Series S5-M Synthetic Turf','Open','New York Giants','2010',33);
 Insert into nfl_stadium_data (stadium,seating_capacity,location,surface,roof,team,opened,sport_location_id) values ('MetLife Stadium',82500,'East Rutherford, New Jersey','UBU Speed Series S5-M Synthetic Turf','Open','New York Jets','2010',34);

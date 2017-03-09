@@ -1,3 +1,20 @@
+/*
+ Copyright 2017 Amazon.com
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+
 use dms_sample;
 
 Insert into MLB_DATA (MLB_ID,MLB_NAME,MLB_POS,MLB_TEAM,MLB_TEAM_LONG,BATS,THROWS,BIRTH_YEAR,BP_ID,BREF_ID,BREF_NAME,CBS_ID,CBS_NAME,CBS_POS,ESPN_ID,ESPN_NAME,ESPN_POS,FG_ID,FG_NAME,LAHMAN_ID,NFBC_ID,NFBC_NAME,NFBC_POS,RETRO_ID,RETRO_NAME,DEBUT,YAHOO_ID,YAHOO_NAME,YAHOO_POS,MLB_DEPTH) values (506560,'Alexi Amarista','3B','SD','San Diego Padres','L','R','1989',55889,'amarial01','Alexi Amarista','1735053','Alexi Amarista','2B',30562,'Alexi Amarista','2B','9063','Alexi Amarista','amarial01',8914,'Alexi Amarista','SS','amara001','Alexi Amarista','4/26/2011',8914,'Alexi Amarista','SS/3B',null);

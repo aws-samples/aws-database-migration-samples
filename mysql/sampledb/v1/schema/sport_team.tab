@@ -1,3 +1,19 @@
+#
+#  Copyright 2017 Amazon.com
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+
 
 create table  if not exists sport_team
 (id MEDIUMINT NOT NULL AUTO_INCREMENT,
@@ -12,11 +28,11 @@ create table  if not exists sport_team
  constraint st_sport_type_fk foreign key(sport_type_name) references sport_type(name)
 );
 
--- unique index to enforce unique names w/in a sport type and league
+# unique index to enforce unique names w/in a sport type and league
 create unique index sport_team_u on sport_team(sport_type_name,sport_league_short_name,name);
 
 
--- Load NFL Data
+# Load NFL Data
   SET @v_sport_Type = 'football';
   SET @v_league = 'NFL';
   SET @v_division = 'AFC North';
@@ -99,7 +115,7 @@ create unique index sport_team_u on sport_team(sport_type_name,sport_league_shor
   INSERT INTO sport_team(name,abbreviated_name,sport_type_name,sport_league_short_name,sport_division_short_name)
   VALUES ('Seattle Seahawks','SEA',@v_sport_type,@v_league,@v_division);
 
--- Load MLB Data
+# Load MLB Data
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS LoadMLBTeams $$

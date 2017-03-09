@@ -1,6 +1,19 @@
---------------------------------------------------------
---  File created - Monday-August-29-2016   
---------------------------------------------------------
+#
+#  Copyright 2017 Amazon.com
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+
 Insert into mlb_data (MLB_ID,MLB_NAME,MLB_POS,MLB_TEAM,MLB_TEAM_LONG,BATS,THROWS,BIRTH_YEAR,BP_ID,BREF_ID,BREF_NAME,CBS_ID,CBS_NAME,CBS_POS,ESPN_ID,ESPN_NAME,ESPN_POS,FG_ID,FG_NAME,LAHMAN_ID,NFBC_ID,NFBC_NAME,NFBC_POS,RETRO_ID,RETRO_NAME,DEBUT,YAHOO_ID,YAHOO_NAME,YAHOO_POS,MLB_DEPTH) values (506560,'Alexi Amarista','3B','SD','San Diego Padres','L','R','1989',55889,'amarial01','Alexi Amarista','1735053','Alexi Amarista','2B',30562,'Alexi Amarista','2B','9063','Alexi Amarista','amarial01',8914,'Alexi Amarista','SS','amara001','Alexi Amarista','4/26/2011',8914,'Alexi Amarista','SS/3B',null);
 Insert into mlb_data (MLB_ID,MLB_NAME,MLB_POS,MLB_TEAM,MLB_TEAM_LONG,BATS,THROWS,BIRTH_YEAR,BP_ID,BREF_ID,BREF_NAME,CBS_ID,CBS_NAME,CBS_POS,ESPN_ID,ESPN_NAME,ESPN_POS,FG_ID,FG_NAME,LAHMAN_ID,NFBC_ID,NFBC_NAME,NFBC_POS,RETRO_ID,RETRO_NAME,DEBUT,YAHOO_ID,YAHOO_NAME,YAHOO_POS,MLB_DEPTH) values (458210,'Alexi Casilla','2B','TB','Tampa Bay Rays','S','R','1984',45799,'casilal01','Alexi Casilla','1103724','Alexi Casilla','3B',28575,'Alexi Casilla','3B','5248','Alexi Casilla','casilal01',7855,'Alexi Casilla','2B','casia001','Alexi Casilla','9/1/2006',7855,'Alexi Casilla','2B/SS',null);
 Insert into mlb_data (MLB_ID,MLB_NAME,MLB_POS,MLB_TEAM,MLB_TEAM_LONG,BATS,THROWS,BIRTH_YEAR,BP_ID,BREF_ID,BREF_NAME,CBS_ID,CBS_NAME,CBS_POS,ESPN_ID,ESPN_NAME,ESPN_POS,FG_ID,FG_NAME,LAHMAN_ID,NFBC_ID,NFBC_NAME,NFBC_POS,RETRO_ID,RETRO_NAME,DEBUT,YAHOO_ID,YAHOO_NAME,YAHOO_POS,MLB_DEPTH) values (468396,'Alexi Ogando','P','ATL','Atlanta Braves','R','R','1983',49910,'ogandal01','Alexi Ogando','1174266','Alexi Ogando','RP',30549,'Alexi Ogando','RP','10261','Alexi Ogando','ogandal01',8743,'Alexi Ogando','P','ogana001','Alexi Ogando','6/15/2010',8743,'Alexi Ogando','RP/SP',null);

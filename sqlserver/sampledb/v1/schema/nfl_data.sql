@@ -1,3 +1,20 @@
+/*
+ Copyright 2017 Amazon.com
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+
 use dms_sample;
 Insert into NFL_DATA (POSITION,PLAYER_NUMBER,NAME,STATUS,STAT1,STAT1_VAL,STAT2,STAT2_VAL,STAT3,STAT3_VAL,STAT4,STAT4_VAL,TEAM) values ('OT',66,'Graf, Kevin','ACT','G','--','GS','--',null,null,null,null,'IND');
 Insert into NFL_DATA (POSITION,PLAYER_NUMBER,NAME,STATUS,STAT1,STAT1_VAL,STAT2,STAT2_VAL,STAT3,STAT3_VAL,STAT4,STAT4_VAL,TEAM) values ('FS',32,'Green, T.J.','ACT','TCKL','--','SCK','--','FF','--','INT','--','IND');
