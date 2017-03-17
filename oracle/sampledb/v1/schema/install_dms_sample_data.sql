@@ -172,10 +172,10 @@ END;
 ---------------------------------------------------
 -- grant privileges on package to dms_user
 --------------------------------------------------
-/*create public synonym ticket_management for dms_sample.ticket_management;
-grant execute on ticketManagement.generateTicketActivity to dms_user;
-grant execute on ticketManagement.generateTransferActivity to dms_user;
-*/
+--create public synonym ticket_management for dms_sample.ticket_management;
+--grant execute on ticketManagement.generateTicketActivity to dms_user;
+--grant execute on ticketManagement.generateTransferActivity to dms_user;
+--
 
 create or replace  public synonym ticket_management for dms_sample.ticketManagement;
 grant execute on ticket_management to dms_user;
