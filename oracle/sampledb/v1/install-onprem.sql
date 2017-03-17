@@ -51,7 +51,7 @@ ALTER DATABASE ADD SUPPLEMENTAL LOG DATA (PRIMARY KEY) COLUMNS;
 -- after creating the account.
 ---------------------------------------------------------
 @user/create_dms_user.sql
-@user/dms_user_privileges.sql
+@user/dms_user_privileges_onprem.sql
 
 --------------------------------------------------------
 --

@@ -30,5 +30,10 @@ END;
 
 
 
-grant execute on ticketManagement to dms_user;
+/*grant execute on ticketManagement to dms_user;
 create or replace public synonym ticketmanagement for dms_sample.ticketmanagement;
+*/
+
+create or replace  public synonym ticket_management for dms_sample.ticketManagement;
+grant execute on ticket_management to dms_user;
+
