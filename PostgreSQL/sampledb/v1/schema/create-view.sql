@@ -9,7 +9,7 @@ select e.id as event_id
 from sporting_event e, sport_team h, sport_team a, sport_location l
 where e.home_team_id = h.id
 and e.away_team_id = a.id
-and e.location_id = l.id
+and e.location_id = l.id;
 
 
 create or replace view sporting_event_ticket_info as
