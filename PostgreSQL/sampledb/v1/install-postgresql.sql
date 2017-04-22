@@ -72,7 +72,6 @@ select generatesporttickets('baseball');
 
 -- Sell tickets and generating ticket activities
 select null as "Creating functions to sell and transfer tickets";
-\i ./schema/functions/selltickets.sql
 \i ./schema/functions/generateticketactivity.sql
 -- generating some initial ticket purchases
 select generateticketactivity(5000);
