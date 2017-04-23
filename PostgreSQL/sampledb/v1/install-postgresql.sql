@@ -64,7 +64,6 @@ select generatenflseason();
 
 -- generating tickets for game events
 select null as "Generating game tickets for MLB and NFL";
-\i ./schema/functions/generatetickets.sql
 \i ./schema/functions/generatesporttickets.sql
 -- generating football and baseball tickets
 select generatesporttickets('football');
