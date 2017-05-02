@@ -80,9 +80,8 @@ This will generate 100 "transfer" transactions. Tickets are transfered as a grou
 * **loadmlbteams:** Loads the Major League Baseball team data from the base data
 * **loadnflplayers:** Loads the NFL players from the base data
 * **loadnflteams:** Loads the NFL teams from the base data
-* **selltickets:** Sells ticket(s) to a person
 * **transferticket:** Transfers ticket(s) from one person to another
-* **generateticketactivity:** Repeatedly sells a random number of tickets (1-6) to a random person (calls sellTickets)
+* **generateticketactivity:** Repeatedly sells a random number of tickets (1-6) to a random person
 * **generatetransferactivity:** Repeatedly transfers tickets from one person to another. 80% are transferred as a group, 20% as singlets (calls transferTicket)
 
 ### TABLES
