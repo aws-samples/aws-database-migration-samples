@@ -9,7 +9,6 @@ The cause of this error is bascially due to the high surrogates of UTF8 values w
 ## Using DMS Extra Connection Attributes
 
 * Always run the task in [detailed debug mode][t].
-[t]: https://forums.aws.amazon.com/ann.jspa?annID=4263
 * As soon as this task fails, please search in the logs for messages like:
 
     [TARGET_LOAD ]D: Load command output: ERROR: invalid byte sequence for encoding "UTF8": 0xed 0xa0 0xbd, CONTEXT: COPY cs_actions, line 1 (csv_target.c:891)
@@ -49,6 +48,8 @@ csscan TABLE='(TABLE_NAME)' FROMCHAR=AL32UTF8  TOCHAR=UTF8 LOG=CANDIDATE_NOTES C
 ```
 
 Addtitonally, consulting your DBA before performing the same on your production database. Also there are many other ways to stripe the data that I am not aware about. Contacting oracle with regards to that might also help you in this situation.
+
+[t]: https://forums.aws.amazon.com/ann.jspa?annID=4263
 
 ## Custom Queries
 
