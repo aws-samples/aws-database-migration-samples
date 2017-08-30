@@ -105,7 +105,7 @@ This will generate 100 "transfer" transactions each delayed by 0.1 seconds. Tick
 * **sporting_event_ticket:** A ticket which, for a price, allows a person to sit their butt in a seat and watch a sporting event.
 * **ticket_purchase_hist:** A recording of every ticket purchase (including transfers) ever made in this system. (Even scalping is recorded here.)
 
-###VIEWS
+### VIEWS
 * **sporting_event_info:** An aggregated view of everything important about a specific sporting event.
 * **sporting_event_ticket_info:** A consolidated view of all information pertinent to a ticket.
 
