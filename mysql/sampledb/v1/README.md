@@ -1,4 +1,4 @@
-#Amazon DMS Sample Database for MySQL: version 1.0
+# Amazon DMS Sample Database for MySQL: version 1.0
 
 Scripts in this repository can be used to generate a MySQL database suitable for testing and exercising
 the AWS Database Migration Service (DMS) and the AWS Schema Conversion Tool (SCT)
