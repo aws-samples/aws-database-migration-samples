@@ -58,7 +58,7 @@ BEGIN TRY
 	    exec dbo.sellTickets @person_id, @event_id, @quantity;
         SET @current_txn = @current_txn +1;
 	    -- WAITFOR DELAY '00:00:00.01'; /* we can add this in the future if needed. */
-        PRINT(CONCAT('event:',@event_id, ' person:', @person_id,' quantity: ',@quantity));
+        -- PRINT(CONCAT('event:',@event_id, ' person:', @person_id,' quantity: ',@quantity));
 	  END TRY
 	  BEGIN CATCH
 	    SET @reset_events = 1;  -- If we fail to sell tickets to this event, we reload the open events table as this one is sold out

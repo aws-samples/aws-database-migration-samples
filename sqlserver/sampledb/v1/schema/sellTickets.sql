@@ -68,7 +68,7 @@ BEGIN TRY
 		  FROM @ticket_ids;
 		  DELETE FROM @ticket_ids;
 
-		  PRINT(CONCAT('Sold ',@rows_updated,' seats - level: ',@seat_level,' section: ',@seat_section,' row: ',@seat_row));
+		  -- PRINT(CONCAT('Sold ',@rows_updated,' seats - level: ',@seat_level,' section: ',@seat_section,' row: ',@seat_row));
 
    	      SET @success = 1;
 		  COMMIT;

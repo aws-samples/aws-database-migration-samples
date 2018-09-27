@@ -55,7 +55,7 @@ BEGIN TRY
 	INSERT INTO ticket_purchase_hist(sporting_event_ticket_id, purchased_by_id, transferred_from_id, transaction_date_time, purchase_price)
     VALUES(@sporting_event_ticket_id, @new_ticketholder_id, @old_ticketholder_id, current_timestamp, ISNULL(@price,@purchase_price)); 
 
-	PRINT(CONCAT('Ticket id: ', @sporting_event_ticket_id, ' Original price: ', @purchase_price, ' Old Ticketholder: ',@old_ticketholder_id,' Txn Date: ', @last_txn_date));
+	-- PRINT(CONCAT('Ticket id: ', @sporting_event_ticket_id, ' Original price: ', @purchase_price, ' Old Ticketholder: ',@old_ticketholder_id,' Txn Date: ', @last_txn_date));
 
     FETCH @xfer_cur INTO @sporting_event_ticket_id, @purchase_price;
   END;

@@ -82,8 +82,8 @@ BEGIN
 	  AND sport_league_short_name = 'NFL'
 	  ORDER BY id;
 
-	  SET @day_increment = DATEPART(WEEKDAY,CAST(CONCAT('01-SEP',YEAR(GETDATE())) AS DATETIME))-1;
-	  SET @event_date = CAST(CONCAT('01-SEP',YEAR(GETDATE())) AS DATETIME) - @day_increment + 7*@date_offset;
+      SET @day_increment = DATEPART(WEEKDAY, CAST('01-SEP' + CAST(YEAR(GETDATE()) AS NVARCHAR(4)) AS DATETIME))-1;
+	  SET @event_date = CAST('01-SEP' + CAST(YEAR(GETDATE()) AS NVARCHAR(4)) AS DATETIME) - @day_increment + 7*@date_offset;
 
 	  OPEN @team2;
       FETCH NEXT FROM @team2 INTO @team2_id, @team2_home_field_id;

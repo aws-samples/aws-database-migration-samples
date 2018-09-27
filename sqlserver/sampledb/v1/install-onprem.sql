@@ -16,7 +16,7 @@
 
 
 PRINT('Installing AWS sampledb in database dms_sample...')
-PRINT(CONCAT('Starting: ',CURRENT_TIMESTAMP));
+-- PRINT(CONCAT('Starting: ',CURRENT_TIMESTAMP));
 GO
 
 :setvar BACKUPDIR aws_sampledb_backups
@@ -175,7 +175,7 @@ print('Setting up replication...')
 go
 :r .\system\enable_replication.sql
 
-PRINT(CONCAT('Complete: ',CURRENT_TIMESTAMP));
+-- PRINT(CONCAT('Complete: ',CURRENT_TIMESTAMP));
 GO
 Print('.....   Done   .....')
 GO
