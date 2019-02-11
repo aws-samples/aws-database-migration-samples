@@ -645,7 +645,7 @@ Insert into name_data (name_type,name) values ('MALE_FIRST','Adam');
 Insert into name_data (name_type,name) values ('MALE_FIRST','Adan');
 Insert into name_data (name_type,name) values ('MALE_FIRST','Adolfo');
 Insert into name_data (name_type,name) values ('MALE_FIRST','Adolph');
-Insert into name_data (name_type,name) values ('MALE_FIRST','Adrian')
+Insert into name_data (name_type,name) values ('MALE_FIRST','Adrian');
 Insert into name_data (name_type,name) values ('MALE_FIRST','Agustin');
 Insert into name_data (name_type,name) values ('MALE_FIRST','Ahmad');
 Insert into name_data (name_type,name) values ('MALE_FIRST','Ahmed');
