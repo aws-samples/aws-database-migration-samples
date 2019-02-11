@@ -1,4 +1,4 @@
-#Amazon DMS Sample Database for MySQL: version 1.0
+# Amazon DMS Sample Database for MySQL: version 1.0
 
 Scripts in this repository can be used to generate a MySQL database suitable for testing and exercising
 the AWS Database Migration Service (DMS) and the AWS Schema Conversion Tool (SCT)
@@ -69,10 +69,10 @@ MySQL> call generateTransferActivity(100,0.1);
 
 This will generate 100 "transfer" transactions each delayed by 0.1 seconds. Tickets are transfered as a group 80% of the time 20% of the time singlets are transfered. A record of each transaction is recorded in ticket_purchase_hist.
 
-##Entity Relationship Diagram of the System
+## Entity Relationship Diagram of the System
 ![alt tag](/images/sampledb.jpg)
 
-##Object Descriptions
+## Object Descriptions
 ### PROCEDURES
 * **generateTicketActivity(p_max_transactions,p_delay_in_seconds):** Calls the procedure "sellTickets" <p_max_transactions> times with a delay of <p_delay_in_seconds> seconds, (fractions of seconds are allowed). The default is to generate 1000 transactions with a delay of 0.25 seconds. To execute the procedure using the defaults use: call generateTicketActivity(NULL,NULL);
 * **generateTransferActivity(p_max_transactions,p_delay_in_seconds):** Calls the procedure "transferTicket" <p_max_transactions> times with a delay of <p_delay_in_seconds> seconds, (fractions of seconds are allowed). The default is to generate 10 transfers with a delay of 0.25 seconds. To execute the procedure using the defaults use: call generateTransferActivity(NULL,NULL);
@@ -105,7 +105,7 @@ This will generate 100 "transfer" transactions each delayed by 0.1 seconds. Tick
 * **sporting_event_ticket:** A ticket which, for a price, allows a person to sit their butt in a seat and watch a sporting event.
 * **ticket_purchase_hist:** A recording of every ticket purchase (including transfers) ever made in this system. (Even scalping is recorded here.)
 
-###VIEWS
+### VIEWS
 * **sporting_event_info:** An aggregated view of everything important about a specific sporting event.
 * **sporting_event_ticket_info:** A consolidated view of all information pertinent to a ticket.
 
