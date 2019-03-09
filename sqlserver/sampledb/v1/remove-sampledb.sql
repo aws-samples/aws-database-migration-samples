@@ -18,7 +18,7 @@
 print('Removing database dms_sample and login dms_user...')
 go
 
-PRINT(CONCAT('Start: ',CURRENT_TIMESTAMP));
+-- PRINT(CONCAT('Start: ',CURRENT_TIMESTAMP));
 GO
 
 print('Removing replication...')
@@ -80,7 +80,7 @@ EXEC sp_dropdevice 'dms_sample_backup';
 EXEC sp_dropdevice 'dms_sample_log';
 
 
-PRINT(CONCAT('Complete: ',CURRENT_TIMESTAMP));
+-- PRINT(CONCAT('Complete: ',CURRENT_TIMESTAMP));
 GO
 
 Print('.....   Done   .....')

@@ -52,8 +52,8 @@ BEGIN
      --- start on the closest saturday to mar 31 of the current year
      DECLARE @event_date DATETIME;
      DECLARE @day_increment INT;
-     SET @day_increment = 6 - DATEPART(WEEKDAY,CAST(CONCAT('31-MAR',YEAR(GETDATE())) AS DATETIME));
-     SET @event_date =  CAST(CONCAT('31-MAR',YEAR(GETDATE())) AS DATETIME) + @day_increment + 7*@date_offset;
+     SET @day_increment = 6 - DATEPART(WEEKDAY, CAST('31-MAR' + CAST(YEAR(GETDATE()) AS NVARCHAR(4)) AS DATETIME));
+     SET @event_date =  CAST('31-MAR' + CAST(YEAR(GETDATE()) AS NVARCHAR(4)) AS DATETIME) + @day_increment + 7*@date_offset;
 
 	 OPEN @team2;
 	 FETCH NEXT

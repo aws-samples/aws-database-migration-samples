@@ -38,7 +38,7 @@ BEGIN TRY
   -- get max and min person ids
   SELECT @min_p_id = min(id), @max_p_id = max(id) FROM person;
 
-  print(concat('max t: ',@max_tik_id,' min t: ', @min_tik_id, 'max p: ',@max_p_id,' min p: ', @min_p_id));
+  -- print(concat('max t: ',@max_tik_id,' min t: ', @min_tik_id, 'max p: ',@max_p_id,' min p: ', @min_p_id));
 
   WHILE @txn_count < @max_transactions
   BEGIN
@@ -64,7 +64,7 @@ BEGIN TRY
     FROM   sporting_event_ticket
     WHERE  id = @tik_id;
 
- 	PRINT(CONCAT('Ticket to transfer: ', @tik_id, ' Transfer to person id: ' , @person_id, ' All tickets?: ',@xfer_all, ' price: ', @price));
+ 	-- PRINT(CONCAT('Ticket to transfer: ', @tik_id, ' Transfer to person id: ' , @person_id, ' All tickets?: ',@xfer_all, ' price: ', @price));
 
     exec dbo.transferTicket @tik_id, @person_id, @xfer_all, @price ;
 

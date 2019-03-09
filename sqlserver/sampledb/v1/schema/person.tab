@@ -9,7 +9,7 @@ create table person
 
 
 INSERT INTO person(full_name, last_name, first_name)
-SELECT CONCAT(first.name,' ',last.name)
+SELECT first.name + ' ' + last.name
        ,last.name
        ,first.name
 FROM   name_data first, name_data last
