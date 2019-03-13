@@ -1622,7 +1622,7 @@ Insert into name_data (name_type,name) values ('LAST','Yefri');
 Insert into name_data (name_type,name) values ('LAST','Yeldon');
 Insert into name_data (name_type,name) values ('LAST','Yhonathan');
 Insert into name_data (name_type,name) values ('LAST','Yimi');
-Insert into name_data (name_type,name) values ('LAST','Yoenis')
+Insert into name_data (name_type,name) values ('LAST','Yoenis');
 Insert into name_data (name_type,name) values ('LAST','Yoervis');
 Insert into name_data (name_type,name) values ('LAST','Yohan');
 Insert into name_data (name_type,name) values ('LAST','Yohander');
