@@ -79,8 +79,8 @@ ADD CONSTRAINT st_seat_type_pk PRIMARY KEY (name);
 
 
 
-ALTER TABLE dms_sample.sporting_event
-ADD CONSTRAINT chk_sold_out CHECK (sold_out IN (0, 1));
+--ALTER TABLE dms_sample.sporting_event
+--ADD CONSTRAINT chk_sold_out CHECK (sold_out IN (0, 1));
 
 
 
