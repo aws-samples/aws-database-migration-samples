@@ -61,6 +61,7 @@ Therefore, when you connect to the sampldb from DMS or SCT, you should connect a
 Most people who use DMS will want to exercise change capture and apply (CDC.) The sampledb includes some packaged designed to generate transactions on your source system. The package is called - dms_sample.ticketManagement. To generate transactions you can log into the database as dms_sample (using SQL Plus or SQL Developer) and do the following:
 
 ```
+SQL> alter session set current_schema=dms_sample;
 SQL> exec ticketManagement.generateTicketActivity(0.01,1000);
 ```
 
