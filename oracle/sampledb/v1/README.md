@@ -70,6 +70,7 @@ This will "sell" 1000 tickets in successive purchases each delayed by 0.01 secon
  Once you've sold some tickets you can run the generateTransferActivity procedure:
 
 ```
+SQL> alter session set current_schema=dms_sample;
 SQL> exec ticketManagement.generateTransferActivity(0.1,1000);
 ````
 
