@@ -61,13 +61,12 @@ Therefore, when you connect to the sampldb from DMS or SCT, you should connect a
 Most people who use DMS will want to exercise change capture and apply (CDC.) The sampledb includes some packaged designed to generate transactions on your source system. The package is called - dms_sample.ticketManagement. To generate transactions you can log into the database as dms_sample (using SQL Plus or SQL Developer) and do the following:
 
 ```
-SQL> alter session set current_schema=dms_sample;
 SQL> exec ticketManagement.generateTicketActivity(0.01,1000);
 ```
 
 This will "sell" 1000 tickets in successive purchases each delayed by 0.01 seconds. Tickets are sold in random groups of 1-6 to random people for a random price. A record of each transaction is recorded in the ticket_purchase_hist table.
 
- Once you've sold some tickets you can run the generateTransferActivity procedure:
+ Once you've sold some tickets you can run the generateTransferActivity procedure as dms_sample:
 
 ```
 SQL> alter session set current_schema=dms_sample;
