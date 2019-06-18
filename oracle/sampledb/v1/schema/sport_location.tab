@@ -19,7 +19,7 @@ create sequence sport_location_seq
 
 
 create table sport_location
-(ID NUMBER(3) NOT NULL,
+(ID NUMBER NOT NULL,
  name varchar2(60) NOT NULL,
  city varchar2(60) NOT NULL,
  seating_capacity NUMBER(7),
