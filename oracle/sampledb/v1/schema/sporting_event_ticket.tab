@@ -41,4 +41,4 @@ create index set_seat_idx on sporting_event_ticket(sport_location_id,seat_level,
 
 create index set_ticketholder_idx on sporting_event_ticket(ticketholder_id);
 
-create index set_ev_id_tkholder_id_idx on sporting_event_ticket(sporting_event_id,ticketholder_id,'');
+create index set_ev_id_tkholder_id_idx on sporting_event_ticket(sporting_event_id,ticketholder_id);
