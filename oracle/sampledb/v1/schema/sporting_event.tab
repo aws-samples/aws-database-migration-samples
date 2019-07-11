@@ -46,7 +46,7 @@ END;
 /
 
 
-create index se_start_date_fcn on sporting_event(TRUNC(start_date_time));
+create index se_start_date_fcn on sporting_event(start_date_time);
 
 
 

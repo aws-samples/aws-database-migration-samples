@@ -66,9 +66,10 @@ SQL> exec ticketManagement.generateTicketActivity(0.01,1000);
 
 This will "sell" 1000 tickets in successive purchases each delayed by 0.01 seconds. Tickets are sold in random groups of 1-6 to random people for a random price. A record of each transaction is recorded in the ticket_purchase_hist table.
 
- Once you've sold some tickets you can run the generateTransferActivity procedure:
+ Once you've sold some tickets you can run the generateTransferActivity procedure as dms_sample:
 
 ```
+SQL> alter session set current_schema=dms_sample;
 SQL> exec ticketManagement.generateTransferActivity(0.1,1000);
 ````
 
