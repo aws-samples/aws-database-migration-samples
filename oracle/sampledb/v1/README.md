@@ -106,13 +106,13 @@ This will generate 1000 "transfer" transactions each delayed by 0.1 seconds. Tic
 * **SEAT:** A specific seat in a specific stadium for which a person can buy a ticket.
 * **SEAT_TYPE:** The type of seat: standard, premium, obstructed, etc.
 * **SPORTING_EVENT:** A specific meeting between two teams at a specific time and place where they will do battle.
-* **SPORTING_EVENT_TICKET:** A ticket which, for a price, allows a person to sit their butt in a seat and watch a sporting event.
+* **SPORTING_EVENT_TICKET:** A ticket which, for a price, allows a person to sit on a seat and watch a sporting event.
 * **SPORT_DIVISION:** Football has divisions like: AFC WEST, NFC EAST. It allows them to organize their battles and create rivalries.
-* **SPORT_LEAGUE** On organized group of teams of the same sport: NFL - National Football League; MLB - Major League Baseball
+* **SPORT_LEAGUE** An organized group of teams of the same sport: NFL - National Football League; MLB - Major League Baseball
 * **SPORT_LOCATION:** A battlefield where teams meet and attempt to destroy each other. Century Link Field (home of the Hawks) is particularly intimidating.
 * **SPORT_TEAM:** An organized group of people who play the same sport. The Seattle Seahawks, (an NFL team), are particularly menacing.
 * **SPORT_TYPE:** Baseball or Football - what's your pleasure?
-* **TICKET_PURCHASE_HIST:** A recording of every ticket purchas (including transfers) ever made in this system. (Even scalping is recorded here.)
+* **TICKET_PURCHASE_HIST:** A recording of every ticket purchase (including transfers) ever made in this system. (Even scalping is recorded here.)
 
 ### VIEWS
 * **SPORTING_EVENT_INFO:** An aggregated view of everything important about a specific sporting event.
