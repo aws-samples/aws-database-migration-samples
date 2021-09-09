@@ -14,4 +14,5 @@
 #  limitations under the License.
 
 
-create database if not exists dms_sample;
+create database if not exists dms_sample
+  character set utf8 collate utf8_unicode_ci;

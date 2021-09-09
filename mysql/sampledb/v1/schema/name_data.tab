@@ -16,6 +16,6 @@
 
 create table name_data(
  name_type VARCHAR(15) NOT NULL,
- name      VARCHAR(45) NOT NULL,
+ name      VARCHAR(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, # make this column case sensitive because there case sensitive dups in the source data
  constraint name_data_pk primary key(name_type, name)
 );
