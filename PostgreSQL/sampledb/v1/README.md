@@ -1,4 +1,4 @@
-#Amazon DMS Sample Database for PostgreSQL: version 1.0
+# Amazon DMS Sample Database for PostgreSQL: version 1.0
 
 Scripts in this repository can be used to generate a PostgreSQL database suitable for testing and exercising
 the AWS Database Migration Service (DMS) and the AWS Schema Conversion Tool (SCT)
@@ -70,10 +70,10 @@ postgres=# select generatetransferactivity(100);
 
 This will generate 100 "transfer" transactions. Tickets are transfered as a group 80% of the time 20% of the time singlets are transfered. A record of each transaction is recorded in ticket_purchase_hist.
 
-##Entity Relationship Diagram of the System
+## Entity Relationship Diagram of the System
 ![alt tag](/images/sampledb.jpg)
 
-##Object Descriptions
+## Object Descriptions
 ### PROCEDURES
 * **generateSeats:** Randomly generates seats for each stadium in a "realistic" fashion
 * **loadmlbplayers:** Loads the Major League Baseball players from the base data
@@ -102,6 +102,6 @@ This will generate 100 "transfer" transactions. Tickets are transfered as a grou
 * **sporting_event_ticket:** A ticket which, for a price, allows a person to sit their butt in a seat and watch a sporting event.
 * **ticket_purchase_hist:** A recording of every ticket purchase (including transfers) ever made in this system. (Even scalping is recorded here.)
 
-###VIEWS
+### VIEWS
 * **sporting_event_info:** An aggregated view of everything important about a specific sporting event.
 * **sporting_event_ticket_info:** A consolidated view of all information pertinent to a ticket.
