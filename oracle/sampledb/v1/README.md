@@ -1,4 +1,4 @@
-#Amazon DMS Sample Database for Oracle: version 1.0
+# Amazon DMS Sample Database for Oracle: version 1.0
 
 Scripts in this repository can be used to generate an Oracle database suitable for testing and exercising
 the AWS Database Migration Service (DMS) and the AWS Schema Conversion Tool (SCT)
@@ -74,11 +74,11 @@ SQL> exec ticketManagement.generateTransferActivity(0.1,1000);
 
 This will generate 1000 "transfer" transactions each delayed by 0.1 seconds. Tickets are transfered as a group 80% of the time 20% of the time singlets are transfered. A record of each transaction is recorded in ticket_purchase_hist.
 
-##Entity Relationsip Diagram of the System
+## Entity Relationsip Diagram of the System
 ![alt tag](/images/sampledb.jpg)
 
-##Object Descriptions
-###PACKAGES           
+## Object Descriptions
+### PACKAGES           
 * **TICKETMANAGEMENT:** Details above under "generating transactions"
 
 ### PROCEDURES
